@@ -304,54 +304,47 @@
 <body>
 
 <div id="loginScreen" class="login-screen">
-    <div class="login-box">
-        <h1>Rooster Techniek</h1>
-        <p class="subtitle">Kijk Omhoog</p>
-        
-        <div id="newRequestsBadge" style="background: #E74C3C; color: white; padding: 12px; border-radius: 6px; text-align: center; margin-bottom: 20px; display: none; font-weight: bold; font-size: 14px;">
+    <div class="login-box" style="max-width: 380px; margin: 40px auto 0; text-align: center;">
+        <h1 style="margin-bottom: 4px;">Rooster Techniek</h1>
+        <p class="subtitle" style="margin-top: 0;">Kijk Omhoog</p>
+
+        <div id="newRequestsBadge" style="background: #E74C3C; color: white; padding: 12px; border-radius: 6px; margin: 16px 0; display: none; font-weight: bold; font-size: 14px;">
             🔔 <span id="badgeCount">0</span> NIEUW(E) REGISTRATIE(S)
         </div>
-        
-        <div class="form-group">
-            <label>Email</label>
+
+        <div class="form-group" style="text-align: left; margin-top: 20px;">
+            <label>E-mail</label>
             <input type="email" id="loginEmail" placeholder="je@mail.nl">
         </div>
-        <div class="form-group">
+        <div class="form-group" style="text-align: left;">
             <label>PIN</label>
-            <input type="password" id="loginPin" placeholder="1234">
+            <input type="password" id="loginPin" placeholder="PIN">
         </div>
-        
-        <div style="margin-bottom: 15px;">
-            <input type="checkbox" id="rememberMe" style="width: 16px; height: 16px; cursor: pointer;">
-            <label for="rememberMe" style="display: inline; margin-left: 8px; font-size: 14px; cursor: pointer;">👤 Onthouden op dit apparaat</label>
-        </div>
-        
-        <div class="privacy-statement">
-            <strong>Privacy & GDPR</strong><br><br>
-            Deze app verwerkt jouw gegevens (naam, email, PIN, rol, beschikbaarheid). 
-            Alle gegevens worden opgeslagen in jouw browser (niet op servers).
-            Je hebt het recht om je account en alle gegevens te laten verwijderen.
-            Neem contact op met de beheerder voor vragen.<br><br>
-            Met inloggen accepteer je dit.
-        </div>
-        
-        <button class="primary" style="width: 100%; padding: 12px; margin-bottom: 10px;" onclick="handleLogin()">Inloggen</button>
-        
-        <button id="biometricBtn" style="width: 100%; padding: 12px; margin-bottom: 10px; background: #5B8FC7; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; display: none;" onclick="biometricLogin()">🔒 Biometrisch inloggen</button>
-        
-        <div style="text-align: center; margin-top: 10px; display: flex; gap: 5px;">
-            <button style="flex: 1; padding: 8px; font-size: 12px;" onclick="showForgotPassword()">Wachtwoord vergeten?</button>
-            <button id="forgetBtn" style="flex: 0; padding: 8px 12px; font-size: 12px; background: #f9f9f9; color: #666; display: none;" onclick="forgetThisDevice()" title="Vergeten op dit apparaat">✕</button>
-        </div>
-        
-        <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; text-align: center;">
-            <p class="small-text" style="margin-bottom: 10px;">Eerste keer?</p>
-            <button style="width: 100%; padding: 12px; margin-bottom: 10px;" onclick="cleanResetAndSetup()">👤 Admin Setup</button>
-            
-            <p class="small-text" style="margin-bottom: 10px; margin-top: 15px;">Ben je team-lid?</p>
-            <button style="width: 100%; padding: 12px; margin-bottom: 10px;" onclick="showRegistration()">📝 Registreer als team-lid</button>
-            
 
+        <div style="text-align: left; margin: 6px 0 14px;">
+            <input type="checkbox" id="rememberMe" style="width: 16px; height: 16px; cursor: pointer;">
+            <label for="rememberMe" style="display: inline; margin-left: 8px; font-size: 14px; cursor: pointer;">Onthoud mij op dit apparaat</label>
+        </div>
+
+        <button class="primary" style="width: 100%; padding: 12px; margin-bottom: 10px;" onclick="handleLogin()">Log in</button>
+
+        <button id="biometricBtn" style="width: 100%; padding: 12px; margin-bottom: 10px; background: #5B8FC7; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; display: none;" onclick="biometricLogin()">🔒 Log in met vingerafdruk</button>
+
+        <div style="display: flex; justify-content: center; gap: 12px; margin-top: 6px;">
+            <button style="background: none; border: none; color: #2B5A7A; text-decoration: underline; cursor: pointer; font-size: 13px;" onclick="showForgotPassword()">Wachtwoord vergeten?</button>
+            <button id="forgetBtn" style="background: none; border: none; color: #888; cursor: pointer; font-size: 13px; display: none;" onclick="forgetThisDevice()" title="Vergeten op dit apparaat">✕ vergeet dit apparaat</button>
+        </div>
+
+        <div style="margin-top: 28px; padding-top: 16px; border-top: 1px solid #eee; font-size: 13px; color: #555;">
+            <div style="margin-bottom: 8px;">Nog geen account?
+                <button style="background: none; border: none; color: #2B5A7A; text-decoration: underline; cursor: pointer; font-size: 13px;" onclick="showRegistration()">Registreer als team-lid</button>
+            </div>
+            <div style="margin-bottom: 8px;">Beheerder, eerste keer?
+                <button style="background: none; border: none; color: #2B5A7A; text-decoration: underline; cursor: pointer; font-size: 13px;" onclick="cleanResetAndSetup()">Admin Setup</button>
+            </div>
+            <div>
+                <button style="background: none; border: none; color: #888; text-decoration: underline; cursor: pointer; font-size: 12px;" onclick="showPrivacy()">Privacy & GDPR</button>
+            </div>
         </div>
     </div>
 </div>
@@ -713,7 +706,7 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script>
 // ===== VERSIE (controleer dit op elk apparaat) =====
-const APP_VERSION = 'v35 - beveiligd';
+const APP_VERSION = 'v36 - inlogscherm, privacy, reden';
 document.addEventListener('DOMContentLoaded', () => {
     const tag = document.createElement('div');
     tag.textContent = 'versie ' + APP_VERSION;
@@ -1263,6 +1256,11 @@ window.addEventListener('storage', () => {
     checkNewRegistrations();
 });
 
+// Privacy-informatie (GDPR)
+function showPrivacy() {
+    showModal('Privacy & GDPR', 'Welke gegevens: naam, e-mailadres, telefoonnummer, geboortedatum, PIN-code, rol, beschikbaarheid en notities. Waar: in een database van Google (Firebase), met servers in België. Wie beheert deze gegevens: Remko Meijer, beheerder van het techniekteam. Waarvoor: alleen voor de planning van het techniekteam. Bewaren: zolang je in het team zit. Je hebt het recht om je gegevens in te zien, te laten wijzigen of te laten verwijderen. Neem daarvoor contact op met de beheerder. Beveiliging: alleen de beheerder kan de planning wijzigen. Let op: de PIN-codes zijn nog niet afgeschermd voor iemand die de link kent. Daar wordt nog aan gewerkt.', [{ text: 'Sluiten', action: closeModal }]);
+}
+
 function showForgotPassword() {
     document.getElementById('loginScreen').style.display = 'none';
     document.getElementById('forgotPasswordScreen').style.display = 'flex';
@@ -1737,6 +1735,12 @@ function renderRoleOverview() {
     host.innerHTML = html;
 }
 
+// Reden van afwezigheid van een persoon op een datum
+function blockoutReason(email, date) {
+    const b = allBlockouts.find(x => x.email === email && x.date === date);
+    return b ? (b.reason || '') : '';
+}
+
 function renderAvailabilityMatrix() {
     const el = document.getElementById('matrixContent');
     if (!el) return;
@@ -1776,7 +1780,7 @@ function renderAvailabilityMatrix() {
             const name = m ? firstName(m.name) : email;
             const blocked = blockedOn(email, s.date);
             return `<td onclick="openMatrixPicker('${key}', '${role}')" style="padding: 8px; text-align: center; cursor: pointer; background: ${blocked ? '#fff5f5' : '#f8fbff'};">
-                        <span style="color: ${blocked ? '#c0392b' : '#2B5A7A'}; font-weight: bold;">${blocked ? '⚠️ ' : ''}${name}</span>
+                        <span style="color: ${blocked ? '#c0392b' : '#2B5A7A'}; font-weight: bold;">${blocked ? '⚠️ ' : ''}${name}</span>${blocked ? '<br><small style="color: #c0392b; font-weight: normal;">' + blockoutReason(email, s.date) + '</small>' : ''}
                     </td>`;
         }).join('');
         const label = role === 'Video' ? 'Video (livestream)' : role;
@@ -1814,7 +1818,7 @@ function openMatrixPicker(key, role) {
         const blocked = allBlockouts.some(b => b.email === m.email && b.date === s.date);
         const roleNote = (m.role === role || m.role === 'Techniek Lead') ? '' : ' (' + m.role + ')';
         buttons += `<button onclick="matrixPick('${key}', '${role}', ${i})" style="display: block; width: 100%; margin: 6px 0; padding: 10px; border: none; border-radius: 6px; text-align: left; cursor: pointer; background: ${blocked ? '#fff5f5' : '#f8fbff'}; color: #2B5A7A; font-weight: bold; border: 1px solid #ddd;">
-                    ${m.name}${roleNote}${blocked ? ' ⚠️ kan niet' : ''}
+                    ${m.name}${roleNote}${blocked ? ' ⚠️ kan niet: ' + blockoutReason(m.email, s.date) : ''}
                 </button>`;
     });
     buttons += `<button onclick="matrixPick('${key}', '${role}', -1)" style="display: block; width: 100%; margin: 14px 0 6px; padding: 10px; border: none; border-radius: 6px; background: #E74C3C; color: white; font-weight: bold; cursor: pointer;">Plek leegmaken</button>`;
