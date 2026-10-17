@@ -710,9 +710,10 @@
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script>
 // ===== VERSIE (controleer dit op elk apparaat) =====
-const APP_VERSION = 'v34 TEST teamlijst per record';
+const APP_VERSION = 'v35 TEST admin-inlog';
 document.addEventListener('DOMContentLoaded', () => {
     const tag = document.createElement('div');
     tag.textContent = 'versie ' + APP_VERSION;
@@ -733,6 +734,23 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
+const auth = firebase.auth();
+const ADMIN_EMAIL = 'remko_meijer@hotmail.com';
+
+// Admin logt eenmalig per apparaat in met e-mail en wachtwoord (Firebase)
+async function ensureAdminSignIn() {
+    if (auth.currentUser && auth.currentUser.email === ADMIN_EMAIL) return true;
+    const pw = prompt('Firebase-wachtwoord van de beheerder (eenmalig per apparaat):');
+    if (!pw) return false;
+    try {
+        await auth.signInWithEmailAndPassword(ADMIN_EMAIL, pw);
+        return true;
+    } catch (err) {
+        console.error('Firebase-inlog mislukt:', err);
+        showModal('Fout', '❌ Het wachtwoord klopt niet. Probeer het opnieuw.', [{ text: 'OK', action: closeModal }]);
+        return false;
+    }
+}
 
 const DATA_PATHS = {
     team: 'rooster/team',
@@ -1578,6 +1596,7 @@ async function handleLogin() {
         localStorage.removeItem('rooster_remembered_user');
     }
     
+    if (user.admin && !(await ensureAdminSignIn())) return;
     enterApp(user);
 }
 
