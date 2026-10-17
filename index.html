@@ -1,0 +1,2854 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#2B5A7A">
+    <meta name="description" content="Rooster Techniek - Kijk Omhoog">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='0%' y2='100%'><stop offset='0%' style='stop-color:%2387CEEB;stop-opacity:1' /><stop offset='100%' style='stop-color:%235B8FC7;stop-opacity:1' /></linearGradient></defs><rect fill='url(%23grad)' width='180' height='180'/><circle cx='90' cy='50' r='20' fill='%23FFFFFF'/><path d='M 90 75 Q 75 90 75 110 Q 75 130 90 140 Q 105 130 105 110 Q 105 90 90 75' fill='%23FFFFFF'/><path d='M 90 120 L 70 100 M 90 120 L 110 100' stroke='%232B5A7A' stroke-width='3' stroke-linecap='round'/><polygon points='90,30 95,45 85,45' fill='%23FFD700'/></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><defs><linearGradient id='grad' x1='0%' y1='0%' x2='0%' y2='100%'><stop offset='0%' style='stop-color:%2387CEEB;stop-opacity:1' /><stop offset='100%' style='stop-color:%235B8FC7;stop-opacity:1' /></linearGradient></defs><rect fill='url(%23grad)' width='180' height='180' rx='40'/><circle cx='90' cy='50' r='20' fill='%23FFFFFF'/><path d='M 90 75 Q 75 90 75 110 Q 75 130 90 140 Q 105 130 105 110 Q 105 90 90 75' fill='%23FFFFFF'/><path d='M 90 120 L 70 100 M 90 120 L 110 100' stroke='%232B5A7A' stroke-width='3' stroke-linecap='round'/><polygon points='90,30 95,45 85,45' fill='%23FFD700'/></svg>">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Rooster Techniek">
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Arial', 'Helvetica', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #87CEEB 0%, #5B8FC7 100%);
+            color: #2B5A7A;
+            min-height: 100vh;
+        }
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+        h1 { 
+            margin: 0 0 10px 0; 
+            font-size: 36px; 
+            color: #fff;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        .subtitle { 
+            color: rgba(255,255,255,0.95); 
+            margin-bottom: 20px; 
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        h2 { 
+            margin: 0 0 15px 0; 
+            font-size: 20px; 
+            color: #2B5A7A; 
+            font-weight: 700;
+            border-bottom: 3px solid #2B5A7A;
+            padding-bottom: 10px;
+        }
+        button {
+            padding: 12px 20px;
+            font-size: 14px;
+            border: none;
+            border-radius: 6px;
+            background: #2B5A7A;
+            cursor: pointer;
+            color: #fff;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        button:hover { background: #1E4052; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+        button.primary {
+            background: #2B5A7A;
+            color: #fff;
+        }
+        button.primary:hover { background: #1E4052; }
+        button.danger {
+            background: #E74C3C;
+            color: #fff;
+        }
+        button.danger:hover { background: #C0392B; }
+        .card {
+            background: rgba(255,255,255,0.95);
+            border: 2px solid #5B8FC7;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid #87CEEB;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: inherit;
+            margin-bottom: 12px;
+            background: #fff;
+            color: #2B5A7A;
+        }
+        input:focus, select:focus { 
+            outline: none; 
+            border-color: #2B5A7A; 
+            box-shadow: 0 0 0 3px rgba(91, 143, 199, 0.2); 
+        }
+        .form-group { margin-bottom: 15px; }
+        label { 
+            display: block; 
+            font-weight: 600; 
+            margin-bottom: 6px; 
+            font-size: 13px; 
+            color: #2B5A7A;
+        }
+        .checkbox-group { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 15px; }
+        .checkbox-group input { width: auto; margin: 0; margin-top: 3px; }
+        .login-screen { 
+            display: flex; 
+            min-height: 100vh; 
+            background: linear-gradient(135deg, #87CEEB 0%, #5B8FC7 100%); 
+            align-items: center; 
+            justify-content: center;
+        }
+        .login-box {
+            background: rgba(255,255,255,0.98);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            max-width: 450px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 3px solid #2B5A7A;
+        }
+        .login-box h1 { 
+            color: #2B5A7A; 
+            margin-bottom: 5px; 
+            font-size: 32px;
+            text-shadow: none;
+        }
+        .login-box .subtitle { 
+            margin-bottom: 30px; 
+            color: #5B8FC7;
+            text-shadow: none;
+        }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 20px; }
+        .team-member {
+            background: rgba(255,255,255,0.9);
+            padding: 12px;
+            border-radius: 6px;
+            border: 2px solid #87CEEB;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .service-card {
+            background: rgba(255,255,255,0.9);
+            padding: 16px;
+            border-radius: 8px;
+            border: 2px solid #87CEEB;
+            margin-bottom: 15px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-right: 5px;
+        }
+        .badge.training { background: #CFF4FC; color: #055160; }
+        .badge.unsuitable { background: #F8D7DA; color: #721c24; }
+        .badge.reserve { background: #D1ECF1; color: #0c5460; }
+        .badge.warning { background: #F8D7DA; color: #721c24; }
+        .badge.expert { background: #D4EDDA; color: #155724; font-weight: bold; }
+        .badge.good { background: #D1ECF1; color: #0c5460; }
+        .badge.competent { background: #CFE2FF; color: #084298; }
+        .badge.beginner { background: #FFF3CD; color: #856404; }
+        .badge.specialized { background: #E2E3E5; color: #41464b; }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.6);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal.active { display: flex; }
+        .modal-content {
+            background: rgba(255,255,255,0.98);
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 3px solid #2B5A7A;
+        }
+        .modal-buttons { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
+        .close-btn { cursor: pointer; color: #5B8FC7; float: right; font-size: 24px; font-weight: bold; }
+        .close-btn:hover { color: #2B5A7A; }
+        .warning-box {
+            background: #F8D7DA;
+            border: 2px solid #E74C3C;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 15px;
+            color: #721c24;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .info-box {
+            background: #D1ECF1;
+            border: 2px solid #5B8FC7;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 15px;
+            color: #2B5A7A;
+            font-size: 13px;
+        }
+        .tabs { display: flex; gap: 10px; margin-bottom: 20px; border-bottom: 3px solid #2B5A7A; }
+        .tab-btn {
+            padding: 12px 20px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.7);
+            border-bottom: 3px solid transparent;
+            margin-bottom: -3px;
+        }
+        .tab-btn.active { 
+            color: #fff; 
+            border-bottom-color: #fff;
+            background: rgba(0,0,0,0.1);
+        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .stat-card {
+            background: rgba(255,255,255,0.9);
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            border: 2px solid #87CEEB;
+        }
+        .stat-number { font-size: 28px; font-weight: 900; color: #2B5A7A; }
+        .stat-label { font-size: 12px; color: #5B8FC7; margin-top: 5px; font-weight: 600; }
+        .privacy-statement {
+            font-size: 12px;
+            line-height: 1.6;
+            color: #2B5A7A;
+            max-height: 200px;
+            overflow-y: auto;
+            background: rgba(135, 206, 235, 0.2);
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            border: 2px solid #87CEEB;
+        }
+        .danger-zone {
+            background: rgba(231, 76, 60, 0.1);
+            border: 3px solid #E74C3C;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        .danger-zone h3 { color: #E74C3C; margin-top: 0; font-weight: 700; }
+        .small-text { font-size: 12px; color: #5B8FC7; }
+        #mainApp {
+            background: linear-gradient(135deg, #87CEEB 0%, #5B8FC7 100%);
+        }
+        
+        /* MOBIEL RESPONSIVE */
+        @media (max-width: 768px) {
+            .container { padding: 10px; }
+            h1 { font-size: 24px; }
+            h2 { font-size: 16px; }
+            button { padding: 10px 16px; font-size: 13px; }
+            input, select, textarea { padding: 8px 10px; font-size: 13px; }
+            .card { padding: 15px; margin-bottom: 15px; }
+            .login-box { padding: 20px; }
+            .tab-btn { padding: 10px 8px; font-size: 12px; margin: 5px; }
+            .tab-content { padding: 15px 10px; }
+            .service-card { padding: 12px; margin-bottom: 12px; }
+            .modal-content { width: 95% !important; padding: 15px; }
+            .modal-buttons { gap: 8px; }
+            .modal-buttons button { flex: 1; min-width: 60px; }
+        }
+        
+        @media (max-width: 480px) {
+            h1 { font-size: 20px; margin-bottom: 5px; }
+            .subtitle { font-size: 13px; margin-bottom: 15px; }
+            button { padding: 8px 12px; font-size: 12px; width: 100%; }
+            input, select, textarea { padding: 7px 8px; font-size: 12px; }
+            .form-group { margin-bottom: 10px; }
+            label { font-size: 13px; }
+            .card { padding: 12px; margin-bottom: 10px; }
+            .login-box { padding: 15px; }
+            .privacy-statement { font-size: 12px; line-height: 1.4; }
+            .tab-btn { padding: 8px 6px; font-size: 11px; margin: 4px 2px; }
+            .service-card { padding: 10px; }
+            .modal-buttons { flex-direction: column; }
+            .modal-buttons button { width: 100% !important; padding: 10px; }
+            .warning-box, .info-box { font-size: 12px; padding: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="loginScreen" class="login-screen">
+    <div class="login-box">
+        <h1>Rooster Techniek</h1>
+        <p class="subtitle">Kijk Omhoog</p>
+        
+        <div id="newRequestsBadge" style="background: #E74C3C; color: white; padding: 12px; border-radius: 6px; text-align: center; margin-bottom: 20px; display: none; font-weight: bold; font-size: 14px;">
+            🔔 <span id="badgeCount">0</span> NIEUW(E) REGISTRATIE(S)
+        </div>
+        
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="loginEmail" placeholder="je@mail.nl">
+        </div>
+        <div class="form-group">
+            <label>PIN</label>
+            <input type="password" id="loginPin" placeholder="1234">
+        </div>
+        
+        <div style="margin-bottom: 15px;">
+            <input type="checkbox" id="rememberMe" style="width: 16px; height: 16px; cursor: pointer;">
+            <label for="rememberMe" style="display: inline; margin-left: 8px; font-size: 14px; cursor: pointer;">👤 Onthouden op dit apparaat</label>
+        </div>
+        
+        <div class="privacy-statement">
+            <strong>Privacy & GDPR</strong><br><br>
+            Deze app verwerkt jouw gegevens (naam, email, PIN, rol, beschikbaarheid). 
+            Alle gegevens worden opgeslagen in jouw browser (niet op servers).
+            Je hebt het recht om je account en alle gegevens te laten verwijderen.
+            Neem contact op met de beheerder voor vragen.<br><br>
+            Met inloggen accepteer je dit.
+        </div>
+        
+        <button class="primary" style="width: 100%; padding: 12px; margin-bottom: 10px;" onclick="handleLogin()">Inloggen</button>
+        
+        <button id="biometricBtn" style="width: 100%; padding: 12px; margin-bottom: 10px; background: #5B8FC7; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; display: none;" onclick="biometricLogin()">🔒 Biometrisch inloggen</button>
+        
+        <div style="text-align: center; margin-top: 10px; display: flex; gap: 5px;">
+            <button style="flex: 1; padding: 8px; font-size: 12px;" onclick="showForgotPassword()">Wachtwoord vergeten?</button>
+            <button id="forgetBtn" style="flex: 0; padding: 8px 12px; font-size: 12px; background: #f9f9f9; color: #666; display: none;" onclick="forgetThisDevice()" title="Vergeten op dit apparaat">✕</button>
+        </div>
+        
+        <div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; text-align: center;">
+            <p class="small-text" style="margin-bottom: 10px;">Eerste keer?</p>
+            <button style="width: 100%; padding: 12px; margin-bottom: 10px;" onclick="cleanResetAndSetup()">👤 Admin Setup</button>
+            
+            <p class="small-text" style="margin-bottom: 10px; margin-top: 15px;">Ben je team-lid?</p>
+            <button style="width: 100%; padding: 12px; margin-bottom: 10px;" onclick="showRegistration()">📝 Registreer als team-lid</button>
+            
+
+        </div>
+    </div>
+</div>
+
+<div id="adminSetup" class="login-screen" style="display: none;">
+    <div class="login-box">
+        <h1>Admin Setup</h1>
+        <p class="subtitle">Maak een admin account aan</p>
+        
+        <div class="warning-box">
+            Dit is eenmalig. Schrijf deze gegevens op!
+        </div>
+        
+        <div class="form-group">
+            <label>Admin email</label>
+            <input type="email" id="adminEmail" placeholder="beheerder@mail.nl">
+        </div>
+        <div class="form-group">
+            <label>Jouw naam (bijv. Remko)</label>
+            <input type="text" id="adminName" placeholder="Remko">
+        </div>
+        <div class="form-group">
+            <label>Admin PIN</label>
+            <input type="password" id="adminPin" placeholder="kies een PIN">
+        </div>
+        <div class="form-group">
+            <label>Geboortejaar (voor wachtwoord reset)</label>
+            <input type="number" id="adminBirthYear" placeholder="1990" min="1900" max="2020">
+        </div>
+        <button class="primary" style="width: 100%; padding: 12px; margin-bottom: 10px;" onclick="createAdminAccount()">Account aanmaken</button>
+        <button style="width: 100%; padding: 12px;" onclick="hideAdminSetup()">Terug</button>
+    </div>
+</div>
+
+<div id="forgotPasswordScreen" class="login-screen" style="display: none;">
+    <div class="login-box">
+        <h1>Wachtwoord Resetten</h1>
+        <p class="subtitle">Alleen voor admin</p>
+        
+        <div class="info-box">
+            Beantwoord de veiligheidsvraag om je PIN te resetten
+        </div>
+        
+        <div class="form-group">
+            <label>Admin email</label>
+            <input type="email" id="forgotEmail" placeholder="beheerder@mail.nl">
+        </div>
+        <div class="form-group">
+            <label>Geboortejaar admin</label>
+            <input type="number" id="forgotBirthYear" placeholder="1990" min="1900" max="2020">
+        </div>
+        <div class="form-group">
+            <label>Nieuwe PIN</label>
+            <input type="password" id="forgotNewPin" placeholder="Kies een PIN">
+        </div>
+        <button class="primary" style="width: 100%; padding: 12px; margin-bottom: 10px;" onclick="resetAdminPin()">PIN Resetten</button>
+        <button style="width: 100%; padding: 12px;" onclick="hideForgotPassword()">Terug</button>
+    </div>
+</div>
+
+<div id="registrationScreen" class="login-screen" style="display: none;">
+    <div class="login-box">
+        <h1>Registratie</h1>
+        <p class="subtitle">Maak een team-lid account aan</p>
+        
+        <div class="info-box">
+            Na registratie moet de admin je account goedkeuren voordat je kunt inloggen.
+        </div>
+        
+        <div class="form-group">
+            <label>Voornaam</label>
+            <input type="text" id="regFirstName" placeholder="Voornaam">
+        </div>
+        <div class="form-group">
+            <label>Achternaam</label>
+            <input type="text" id="regLastName" placeholder="Achternaam">
+        </div>
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="regEmail" placeholder="jouw@mail.nl">
+        </div>
+        <div class="form-group">
+            <label>Telefoonnummer</label>
+            <input type="tel" id="regPhone" placeholder="+31 6 12345678">
+        </div>
+        <div class="form-group">
+            <label>Geboortedatum</label>
+            <input type="date" id="regBirthDate">
+        </div>
+        <div class="form-group">
+            <label>Kies een PIN (4 cijfers)</label>
+            <input type="password" id="regPin" placeholder="1234" maxlength="4">
+        </div>
+        <button class="primary" style="width: 100%; padding: 12px; margin-bottom: 10px;" onclick="submitRegistration()">Registreren</button>
+        <button style="width: 100%; padding: 12px;" onclick="hideRegistration()">Terug</button>
+    </div>
+</div>
+
+<div class="container" id="mainApp" style="display: none;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+        <div>
+            <h1>Rooster Techniek</h1>
+            <p class="subtitle">Kijk Omhoog</p>
+        </div>
+        <button onclick="handleLogout()">Uitloggen</button>
+    </div>
+
+    <!-- ADMIN DASHBOARD -->
+    <div id="adminDashboard" style="display: none;">
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchAdminTab('overview')">Overzicht</button>
+            <button class="tab-btn" onclick="switchAdminTab('requests')">Registraties <span id="requestBadge" style="display: none; background: #E74C3C; color: white; padding: 2px 6px; border-radius: 10px; font-size: 11px; margin-left: 5px;">0</span></button>
+            <button class="tab-btn" onclick="switchAdminTab('team')">Team</button>
+            <button class="tab-btn" onclick="switchAdminTab('services')">Diensten</button>
+            <button class="tab-btn" onclick="switchAdminTab('matrix')">📊 Beschikbaarheid</button>
+            <button class="tab-btn" onclick="switchAdminTab('admin')">Admin</button>
+        </div>
+
+        <!-- OVERVIEW -->
+        <div id="overviewTab" class="tab-content active">
+            <div class="grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="teamCount">0</div>
+                    <div class="stat-label">Team-leden</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="serviceCount">0</div>
+                    <div class="stat-label">Diensten</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="blockoutCount">0</div>
+                    <div class="stat-label">Block-outs</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Volgende diensten</h2>
+                <div id="upcomingServices"></div>
+            </div>
+
+        </div>
+
+        <!-- REGISTRATIE VERZOEKEN -->
+        <div id="requestsTab" class="tab-content">
+            <div id="registrationRequests"></div>
+        </div>
+
+        <!-- TEAM MANAGEMENT -->
+        <div id="teamTab" class="tab-content">
+            <button class="primary" onclick="openAddTeamModal()" style="margin-bottom: 20px;">+ Team-lid toevoegen</button>
+            <div id="teamListAdmin"></div>
+        </div>
+
+        <!-- SERVICES -->
+        <div id="servicesTab" class="tab-content">
+            <button class="primary" onclick="openAddServiceModal()" style="margin-bottom: 20px;">+ Dienst toevoegen</button> <button class="danger" onclick="deleteAllServices()" style="margin-bottom: 20px;">🗑️ Alle diensten verwijderen</button>
+            <div id="servicesListAdmin"></div>
+        </div>
+
+        <!-- BESCHIKBAARHEID MATRIX -->
+        <div id="matrixTab" class="tab-content">
+            <h2>📊 Beschikbaarheidmatrix</h2>
+            <p class="small-text">Per zondag: wie draait welke rol. ⚠️ = kan niet. "Nodig" = plek is nog leeg.</p>
+            <div id="matrixContent" style="overflow-x: auto; margin-top: 20px; background: white; padding: 15px; border-radius: 6px;"></div>
+        </div>
+
+        <!-- ADMIN SETTINGS -->
+        <div id="adminTab" class="tab-content">
+            <div class="card" style="background: #e8f4f8; border-left: 4px solid #2B5A7A;">
+                <h2 style="margin-top: 0;">📅 Standaard diensten</h2>
+                <p class="small-text">Laadt alle zondagen tot januari + 24 dec + 31 dec</p>
+                <button class="primary" onclick="loadDefaultSundays()" style="width: 100%; padding: 12px; margin-bottom: 10px;">➕ Laad zondagen & speciale dagen</button>
+                <small style="color: #666;">Na laden kun je alle diensten individueel aanpassen</small>
+            </div>
+            
+            <div class="card">
+                <h2>Data beheer</h2>
+                <button onclick="exportAllData()" style="margin-bottom: 10px; width: 100%; padding: 12px;">📥 Backup downloaden</button>
+                <p class="small-text">Download alle data als JSON bestand</p>
+            </div>
+            
+            <div class="card danger-zone">
+                <h3>Gevarenzone</h3>
+                <p class="small-text">Voorzichtig! Dit kan niet ongedaan worden gemaakt.</p>
+                <button class="danger" onclick="resetAllData()" style="width: 100%; padding: 12px;">Alle data verwijderen</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TEAM MEMBER VIEW -->
+    <div id="teamView" style="display: none;">
+        <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+            <button id="tabBtnDiensten" class="primary" onclick="showTeamTab('diensten')" style="flex: 1;">Mijn diensten</button>
+            <button id="tabBtnBeschikbaarheid" class="primary" onclick="showTeamTab('beschikbaarheid')" style="flex: 1; opacity: 0.6;">Beschikbaarheid</button>
+        </div>
+        <div class="card" id="cardDiensten">
+            <h2>Jouw volgende diensten</h2>
+            <div id="myServices"></div>
+        </div>
+
+        <div class="card" id="cardBeschikbaarheid">
+            <h2>Beschikbaarheid</h2>
+            <p style="color: #666; margin-bottom: 15px; font-size: 13px;">Geef hier de datums aan waarop je niet kunt draaien.</p>
+            <button class="primary" onclick="openBlockoutModal()" style="margin-bottom: 15px;">+ Block-out toevoegen</button>
+            <div id="myBlockouts"></div>
+        </div>
+
+        <div class="card">
+            <h2>Instellingen</h2>
+            <div class="form-group">
+                <label>Herinneringen inschakelen</label>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="enableReminders" onchange="saveReminderSettings()">
+                    <label style="margin: 0;">Meldingen voor diensten</label>
+                </div>
+            </div>
+            <div class="form-group" id="reminderSettings" style="display: none;">
+                <label>Herinnering vóór dienst</label>
+                <select id="reminderHours" onchange="saveReminderSettings()">
+                    <option value="0">Direct als dienst begint</option>
+                    <option value="1">1 uur van tevoren</option>
+                    <option value="12">12 uur van tevoren</option>
+                    <option value="24">1 dag van tevoren (standaard)</option>
+                    <option value="48">2 dagen van tevoren</option>
+                </select>
+            </div>
+            <button onclick="testReminder()" style="width: 100%; padding: 12px; margin-top: 10px;">Test herinnering</button>
+        </div>
+
+        <div class="card">
+            <h2>Jouw status</h2>
+            <div id="myStatus"></div>
+        </div>
+
+        <div class="card danger-zone">
+            <h3>Mijn gegevens</h3>
+            <p class="small-text">Je hebt het recht om je account en alle gegevens te laten verwijderen (GDPR artikel 17).</p>
+            <button class="danger" onclick="deleteMyAccount()" style="width: 100%; padding: 12px; margin-top: 10px;">Mijn account verwijderen</button>
+            <p class="small-text" style="margin-top: 10px;">Neem contact op met de beheerder na verwijdering.</p>
+        </div>
+    </div>
+</div>
+
+<!-- MODALS -->
+<div id="addTeamModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeAddTeamModal()">&times;</span>
+        <h2>Team-lid toevoegen</h2>
+        <div class="form-group">
+            <label>Naam</label>
+            <input type="text" id="teamName">
+        </div>
+        <div class="form-group">
+            <label>Email</label>
+            <input type="email" id="teamEmail">
+        </div>
+        <div class="form-group">
+            <label>Rol</label>
+            <select id="teamRole">
+                <option value="Video">Video</option>
+                <option value="Geluid">Geluid</option>
+                <option value="Multimedia">Multimedia</option>
+                <option value="Licht">Licht</option>
+                <option value="Techniek Lead">Techniek Lead (alle rollen)</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>PIN (team-lid krijgt dit van jou)</label>
+            <input type="password" id="teamPin" placeholder="kies een PIN">
+        </div>
+        <div class="form-group">
+            <label>Status</label>
+            <select id="teamStatus">
+                <option value="">Geen</option>
+                <option value="expert">🌟 Expert</option>
+                <option value="good">✅ Goed</option>
+                <option value="competent">👍 Competent</option>
+                <option value="beginner">📚 Beginner</option>
+                <option value="training">🎓 In Training</option>
+                <option value="specialized">🔧 Gespecialiseerd</option>
+                <option value="reserve">🔄 Reserve</option>
+                <option value="unsuitable">❌ Niet Geschikt</option>
+            </select>
+        </div>
+        <div class="modal-buttons">
+            <button onclick="closeAddTeamModal()">Annuleren</button>
+            <button class="primary" onclick="addTeamMember()">Toevoegen</button>
+        </div>
+    </div>
+</div>
+
+<div id="addServiceModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeAddServiceModal()">&times;</span>
+        <h2>Dienst toevoegen</h2>
+        <div class="form-group">
+            <label>Datum</label>
+            <input type="date" id="serviceDate">
+        </div>
+        <div class="form-group">
+            <label>Tijd</label>
+            <input type="time" id="serviceTime" value="10:00">
+        </div>
+        <div class="form-group">
+            <label>Omschrijving</label>
+            <input type="text" id="serviceDesc" placeholder="bijv. Ochtendwoning">
+        </div>
+        <div class="form-group">
+            <label>📝 Notitie voor teamleden (bijv. tijd aanwezig zijn)</label>
+            <textarea id="serviceNotes" placeholder="bijv. Om 11:45 uur aanwezig zijn." style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; font-family: inherit; resize: vertical; min-height: 60px;"></textarea>
+        </div>
+        <div class="form-group">
+            <label>🔄 Herhalen?</label>
+            <select id="serviceRepeat" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; font-family: inherit;">
+                <option value="none">Eenmalig</option>
+                <option value="weekly">Elke week (12 weken)</option>
+                <option value="biweekly">Elke 2 weken (12 weken)</option>
+                <option value="monthly">Maandelijks (6 maanden)</option>
+            </select>
+            <small style="color: #666; display: block; margin-top: 5px;">Automatisch meerdere diensten aanmaken</small>
+        </div>
+        <div class="modal-buttons">
+            <button onclick="closeAddServiceModal()">Annuleren</button>
+            <button class="primary" onclick="addService()">Toevoegen</button>
+        </div>
+    </div>
+</div>
+
+<div id="editServiceModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeEditServiceModal()">&times;</span>
+        <h2>Dienst bewerken</h2>
+        <div id="editServiceContent"></div>
+    </div>
+</div>
+
+<div id="blockoutModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeBlockoutModal()">&times;</span>
+        <h2>Block-out toevoegen</h2>
+        <p style="color: #666; font-size: 13px; margin-bottom: 15px;">Zet jezelf op niet beschikbaar voor deze datum</p>
+        <div class="form-group">
+            <label>Datum</label>
+            <input type="date" id="blockoutDate">
+        </div>
+        <div class="form-group">
+            <label>Reden van afwezigheid (verplicht)</label>
+            <input type="text" id="blockoutReason" placeholder="bijv. Vakantie, ziek">
+        </div>
+        <div class="modal-buttons">
+            <button onclick="closeBlockoutModal()">Annuleren</button>
+            <button class="primary" onclick="addBlockout()">Toevoegen</button>
+        </div>
+    </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<script>
+// ===== VERSIE (controleer dit op elk apparaat) =====
+const APP_VERSION = 'v34 TEST teamlijst per record';
+document.addEventListener('DOMContentLoaded', () => {
+    const tag = document.createElement('div');
+    tag.textContent = 'versie ' + APP_VERSION;
+    tag.style.cssText = 'position:fixed;bottom:4px;right:6px;font-size:11px;color:#333;background:rgba(255,255,255,0.7);padding:2px 6px;border-radius:4px;z-index:9999;pointer-events:none;';
+    document.body.appendChild(tag);
+});
+console.log('ROOSTER VERSIE:', APP_VERSION);
+
+// ===== FIREBASE =====
+const firebaseConfig = {
+  apiKey: "AIzaSyAdu7M16hW34EDuk7-AcwERCXtOxklo0mI",
+  authDomain: "koh-techniek-rooster.firebaseapp.com",
+  databaseURL: "https://koh-techniek-rooster-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "koh-techniek-rooster",
+  storageBucket: "koh-techniek-rooster.firebasestorage.app",
+  messagingSenderId: "377647153504",
+  appId: "1:377647153504:web:214ea5b40cd6261d71de05"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+const DATA_PATHS = {
+    team: 'rooster/team',
+    services: 'rooster/services',
+    blockouts: 'rooster/blockouts'
+};
+
+// Data in geheugen (wordt live gesynchroniseerd met Firebase)
+let allTeam = [];
+let allServices = [];
+let allBlockouts = [];
+let dataReady = false;
+const loadedKeys = { team: false, services: false, blockouts: false };
+
+// Laatst bekende serverstatus per lijst (om wijzigingen te bepalen)
+const lastSynced = { team: [], services: [], blockouts: [] };
+
+// Identiteit van een item (om items te herkennen zonder volgorde)
+const ITEM_KEY = {
+    team: m => m.email,
+    services: s => s.date + '|' + s.time,
+    blockouts: b => (b.email || '') + '|' + b.date
+};
+
+// Alleen je eigen wijzigingen naar de server sturen, samengevoegd met de actuele lijst
+function saveData(key, value) {
+    if (!loadedKeys[key]) {
+        console.warn('Opslaan geblokkeerd: ' + key + ' nog niet geladen');
+        showModal('Even geduld', '⏳ Gegevens worden nog geladen. Probeer het over een paar seconden opnieuw.', [{ text: 'OK', action: closeModal }]);
+        return;
+    }
+    if (key === 'services') {
+        saveServicesDiff(value);
+        return;
+    }
+    if (key === 'team') {
+        saveTeamDiff(value);
+        return;
+    }
+    const kf = ITEM_KEY[key];
+    const newList = JSON.parse(JSON.stringify(value));
+    const oldList = lastSynced[key] || [];
+
+    const oldMap = new Map(oldList.map(i => [kf(i), JSON.stringify(i)]));
+    const newKeys = new Set(newList.map(kf));
+    const removed = [...oldMap.keys()].filter(k => !newKeys.has(k));
+    const upserts = newList.filter(i => oldMap.get(kf(i)) !== JSON.stringify(i));
+
+    lastSynced[key] = newList;
+    if (removed.length === 0 && upserts.length === 0) return;
+
+    return db.ref(DATA_PATHS[key]).transaction(current => {
+        let list = toArray(current);
+        list = list.filter(i => !removed.includes(kf(i)));
+        upserts.forEach(u => {
+            const idx = list.findIndex(i => kf(i) === kf(u));
+            if (idx >= 0) list[idx] = u;
+            else list.push(u);
+        });
+        list = dedupeList(key, list);
+        return list.length ? list : null;
+    }).catch(err => {
+        console.error('Firebase opslaan mislukt:', err);
+        showModal('Fout', '❌ Opslaan mislukt. Controleer je internetverbinding en probeer opnieuw.', [{ text: 'OK', action: closeModal }]);
+    });
+}
+
+function toArray(val) {
+    if (Array.isArray(val)) return val;
+    if (val && typeof val === 'object') return Object.values(val);
+    return [];
+}
+
+function refreshAfterRemoteChange() {
+    console.log('[LIVE] scherm verversen, klaar:', dataReady);
+    if (!dataReady) return;
+    checkNewRegistrations();
+    
+    // Rechten van de ingelogde gebruiker actueel houden
+    if (typeof currentUser !== 'undefined' && currentUser) {
+        const fresh = allTeam.find(m => m.email && m.email.toLowerCase() === currentUser.email.toLowerCase());
+        if (!fresh || fresh.role === 'Pending') {
+            handleLogout();
+            return;
+        }
+        const changed = !!fresh.admin !== !!currentUser.admin ||
+                        !!fresh.editor !== !!currentUser.editor ||
+                        fresh.role !== currentUser.role;
+        if (changed) {
+            enterApp(fresh);
+            return;
+        }
+    }
+    if (typeof currentUser !== 'undefined' && currentUser) {
+        if (currentUser.admin) {
+                        renderAvailabilityMatrix();
+            renderAdminDashboard();
+            renderTeamList();
+            renderServicesList();
+            renderRoleOverview();
+        } else {
+            renderTeamView();
+        }
+    }
+}
+
+// Verwijder dubbele items (zelfde dag/tijd, of zelfde persoon + dag)
+function dedupeList(key, arr) {
+    const seen = new Set();
+    return arr.filter(item => {
+        const id = key === 'services' ? (item.date + '|' + item.time)
+                 : key === 'blockouts' ? ((item.email || '') + '|' + item.date)
+                 : null;
+        if (id === null) return true;
+        if (seen.has(id)) return false;
+        seen.add(id);
+        return true;
+    });
+}
+
+// ===== BLOKKERINGEN: elk een eigen record met eigen ID =====
+function readBlockouts(snap) {
+    const raw = snap.val() || {};
+    const keys = Object.keys(raw).sort((a, b) => {
+        const aOk = raw[a] && raw[a].id === a ? 0 : 1;
+        const bOk = raw[b] && raw[b].id === b ? 0 : 1;
+        return aOk - bOk;
+    });
+    const updates = {};
+    const list = [];
+    const seen = new Set();
+    keys.forEach(k => {
+        const item = raw[k];
+        if (!item || typeof item !== 'object') { updates[k] = null; return; }
+        const dupKey = (item.email || '') + '|' + item.date;
+        if (seen.has(dupKey)) { updates[k] = null; return; }
+        seen.add(dupKey);
+        if (item.id === k) { list.push(item); return; }
+        const newId = db.ref(DATA_PATHS.blockouts).push().key;
+        const migrated = Object.assign({}, item, { id: newId });
+        updates[k] = null;
+        updates[newId] = migrated;
+        list.push(migrated);
+    });
+    if (Object.keys(updates).length) {
+        db.ref(DATA_PATHS.blockouts).update(updates).catch(err => console.error('Omzetten mislukt:', err));
+    }
+    return list;
+}
+
+function removeBlockouts(predicate) {
+    const toRemove = allBlockouts.filter(predicate);
+    const updates = {};
+    toRemove.forEach(b => { if (b.id) updates[b.id] = null; });
+    allBlockouts = allBlockouts.filter(b => !predicate(b));
+    if (Object.keys(updates).length) {
+        db.ref(DATA_PATHS.blockouts).update(updates).catch(err => console.error('Verwijderen mislukt:', err));
+    }
+}
+
+// ===== DIENSTEN: elk een eigen record met eigen ID =====
+// Sleutels in vaste volgorde, zodat we echte wijzigingen herkennen
+function canonical(obj) {
+    return JSON.stringify(obj, (k, v) => {
+        if (v && typeof v === 'object' && !Array.isArray(v)) {
+            return Object.keys(v).sort().reduce((acc, kk) => { acc[kk] = v[kk]; return acc; }, {});
+        }
+        return v;
+    });
+}
+
+// Leest diensten in. Oud formaat (één lijst) wordt eenmalig omgezet.
+function readServices(snap) {
+    const raw = snap.val() || {};
+    const keys = Object.keys(raw).sort((a, b) => {
+        const aOk = raw[a] && raw[a].id === a ? 0 : 1;
+        const bOk = raw[b] && raw[b].id === b ? 0 : 1;
+        return aOk - bOk;
+    });
+    const updates = {};
+    const list = [];
+    const seen = new Set();
+    keys.forEach(k => {
+        const item = raw[k];
+        if (!item || typeof item !== 'object') { updates[k] = null; return; }
+        const dupKey = item.date + '|' + item.time;
+        if (seen.has(dupKey)) { updates[k] = null; return; }
+        seen.add(dupKey);
+        if (item.id === k) { list.push(item); return; }
+        const newId = db.ref(DATA_PATHS.services).push().key;
+        const migrated = Object.assign({}, item, { id: newId });
+        updates[k] = null;
+        updates[newId] = migrated;
+        list.push(migrated);
+    });
+    if (Object.keys(updates).length) {
+        console.log('Diensten omgezet naar nieuw formaat');
+        db.ref(DATA_PATHS.services).update(updates).catch(err => console.error('Omzetten diensten mislukt:', err));
+    }
+    list.sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
+    return list;
+}
+
+// Schrijft alleen de diensten die echt zijn veranderd, elk als eigen record
+function saveServicesDiff(value) {
+    value.forEach(s => { if (!s.id) s.id = db.ref(DATA_PATHS.services).push().key; });
+    const list = JSON.parse(JSON.stringify(value));
+
+    const oldById = new Map((lastSynced.services || []).map(s => [s.id, canonical(s)]));
+    const newIds = new Set(list.map(s => s.id));
+    const updates = {};
+    oldById.forEach((_, id) => { if (!newIds.has(id)) updates[id] = null; });
+    list.forEach(s => { if (oldById.get(s.id) !== canonical(s)) updates[s.id] = s; });
+
+    lastSynced.services = list;
+    console.log('[DIENST] op server schrijven:', Object.keys(updates).length, 'wijzigingen', updates);
+    if (Object.keys(updates).length) {
+        db.ref(DATA_PATHS.services).update(updates)
+            .then(() => console.log('[DIENST] server heeft bevestigd'))
+            .catch(err => {
+                console.error('[DIENST] server WEIGERT:', err);
+            console.error('Dienst opslaan mislukt:', err);
+                showModal('Fout', '❌ Opslaan van de dienst is mislukt. Controleer je internetverbinding en probeer opnieuw.', [{ text: 'OK', action: closeModal }]);
+            });
+    }
+}
+
+// ===== TEAMLEDEN: elk een eigen record met eigen ID =====
+// Leest de teamlijst in. Oud formaat (één lijst) wordt eenmalig omgezet. Dubbele e-mails worden verwijderd.
+function readTeam(snap) {
+    const raw = snap.val() || {};
+    const keys = Object.keys(raw).sort((a, b) => {
+        const aOk = raw[a] && raw[a].id === a ? 0 : 1;
+        const bOk = raw[b] && raw[b].id === b ? 0 : 1;
+        return aOk - bOk;
+    });
+    const updates = {};
+    const list = [];
+    const seen = new Set();
+    keys.forEach(k => {
+        const item = raw[k];
+        if (!item || typeof item !== 'object') { updates[k] = null; return; }
+        const mail = (item.email || '').toLowerCase();
+        if (mail && seen.has(mail)) { updates[k] = null; return; }
+        if (mail) seen.add(mail);
+        if (item.id === k) { list.push(item); return; }
+        const newId = db.ref(DATA_PATHS.team).push().key;
+        const migrated = Object.assign({}, item, { id: newId });
+        updates[k] = null;
+        updates[newId] = migrated;
+        list.push(migrated);
+    });
+    if (Object.keys(updates).length) {
+        db.ref(DATA_PATHS.team).update(updates).catch(err => console.error('Omzetten teamlijst mislukt:', err));
+    }
+    return list;
+}
+
+// Schrijft alleen de teamleden die echt zijn veranderd, elk als eigen record
+function saveTeamDiff(value) {
+    value.forEach(m => { if (!m.id) m.id = db.ref(DATA_PATHS.team).push().key; });
+    const list = JSON.parse(JSON.stringify(value));
+    const oldById = new Map((lastSynced.team || []).map(m => [m.id, canonical(m)]));
+    const newIds = new Set(list.map(m => m.id));
+    const updates = {};
+    oldById.forEach((_, id) => { if (!newIds.has(id)) updates[id] = null; });
+    list.forEach(m => { if (oldById.get(m.id) !== canonical(m)) updates[m.id] = m; });
+    lastSynced.team = list;
+    if (Object.keys(updates).length) {
+        db.ref(DATA_PATHS.team).update(updates).catch(err => {
+            console.error('Teamlid opslaan mislukt:', err);
+            showModal('Fout', '❌ Opslaan van het teamlid is mislukt. Controleer je internetverbinding en probeer opnieuw.', [{ text: 'OK', action: closeModal }]);
+        });
+    }
+}
+
+// Live luisteren naar wijzigingen
+Object.keys(DATA_PATHS).forEach(key => {
+    db.ref(DATA_PATHS[key]).on('value', snap => {
+        let arr;
+        if (key === 'blockouts') {
+            arr = readBlockouts(snap);
+        } else if (key === 'services') {
+            arr = readServices(snap);
+        } else if (key === 'team') {
+            arr = readTeam(snap);
+        } else {
+            arr = toArray(snap.val());
+            const cleaned = dedupeList(key, arr);
+            if (cleaned.length !== arr.length) {
+                console.log('Dubbelen verwijderd in', key);
+                db.ref(DATA_PATHS[key]).set(cleaned.length ? cleaned : null);
+                arr = cleaned;
+            }
+        }
+        console.log('[LIVE] update ontvangen van server voor:', key, '| aantal:', arr.length);
+        lastSynced[key] = JSON.parse(JSON.stringify(arr)); // echte kopie, geen gedeelde referentie
+        if (key === 'team') allTeam = arr;
+        else if (key === 'services') allServices = arr;
+        else allBlockouts = arr;
+
+        loadedKeys[key] = true;
+        if (!dataReady && Object.values(loadedKeys).every(Boolean)) {
+            dataReady = true;
+            console.log('✓ Data geladen uit Firebase');
+            const savedEmail = sessionStorage.getItem('rooster_session_email');
+            if (savedEmail) {
+                const u = allTeam.find(m => m.email && m.email.toLowerCase() === savedEmail.toLowerCase());
+                if (u && u.role !== 'Pending') enterApp(u);
+            }
+        }
+        refreshAfterRemoteChange();
+    }, err => {
+        console.error('Firebase lezen mislukt:', err);
+        showModal('Fout', '❌ Kan gegevens niet laden. Controleer je internetverbinding.', [{ text: 'OK', action: closeModal }]);
+    });
+});
+
+// Debug: Check of JS loadt
+console.log('✓ Rooster Techniek JS geladen');
+console.log('✓ Team data:', allTeam.length, 'leden');
+console.log('✓ Services:', allServices.length, 'diensten');
+
+// Register service worker voor PWA
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').catch(() => {
+    // Service worker is optional
+  });
+}
+
+function showRegistration() {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('registrationScreen').style.display = 'flex';
+}
+
+// Haal de actuele teamlijst op van de server (voorkomt verouderde data)
+async function loadTeamFromServer() {
+    const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 8000));
+    const snap = await Promise.race([db.ref(DATA_PATHS.team).once('value'), timeout]);
+    allTeam = readTeam(snap);
+    lastSynced.team = JSON.parse(JSON.stringify(allTeam));
+    return allTeam;
+}
+
+function hideRegistration() {
+    document.getElementById('registrationScreen').style.display = 'none';
+    document.getElementById('loginScreen').style.display = 'flex';
+}
+
+async function submitRegistration() {
+    const firstName = document.getElementById('regFirstName').value.trim();
+    const lastName = document.getElementById('regLastName').value.trim();
+    const email = document.getElementById('regEmail').value.trim().toLowerCase();
+    const phone = document.getElementById('regPhone').value.trim();
+    const birthDate = document.getElementById('regBirthDate').value;
+    const pin = document.getElementById('regPin').value.trim();
+    
+    if (!firstName || !lastName || !email || !pin || !birthDate) {
+        showModal('Fout', 'Alle velden zijn verplicht!', [{ text: 'OK', action: closeModal }]);
+        return;
+    }
+    
+    if (pin.length !== 4 || isNaN(pin)) {
+        showModal('Fout', 'PIN moet 4 cijfers zijn!', [{ text: 'OK', action: closeModal }]);
+        return;
+    }
+    
+    if (allTeam.some(m => m.email.toLowerCase() === email.toLowerCase())) {
+        showModal('Fout', 'Dit email adres is al in gebruik!', [{ text: 'OK', action: closeModal }]);
+        return;
+    }
+    
+    try {
+        await loadTeamFromServer();
+    } catch (err) {
+        showModal('Fout', '❌ Kan de server niet bereiken. Controleer je internetverbinding en probeer opnieuw.', [{ text: 'OK', action: closeModal }]);
+        return;
+    }
+    
+    if (allTeam.some(m => m.email && m.email.toLowerCase() === email)) {
+        showModal('Fout', 'Dit email adres is al in gebruik!', [{ text: 'OK', action: closeModal }]);
+        return;
+    }
+    
+    // Maak pending account aan (wacht op admin goedkeuring)
+    const registrationRequest = {
+        name: firstName + ' ' + lastName,
+        email: email,
+        phone: phone,
+        birthDate: birthDate,
+        pin: pin.toString(), // Zorg dat PIN een string is
+        role: 'Pending',
+        status: '',
+        admin: false,
+        editor: false, // Standaard geen editor
+        approved: false,
+        created: new Date().toISOString()
+    };
+    
+    console.log('Registration request:', registrationRequest);
+    
+    allTeam.push(registrationRequest);
+    saveData('team', allTeam);
+    
+    // Zet melding flag voor admin
+    localStorage.setItem('newRegistration_' + email, 'true');
+    
+    showModal('✅ Registratie aangevraagd!', 'Je account wacht op goedkeuring van de admin.\n\nJe ontvangt een bericht zodra dit is gebeurd.', 
+        [{ text: 'OK', action: () => { closeModal(); hideRegistration(); } }]
+    );
+    
+    // Clear form
+    document.getElementById('regFirstName').value = '';
+    document.getElementById('regLastName').value = '';
+    document.getElementById('regEmail').value = '';
+    document.getElementById('regPhone').value = '';
+    document.getElementById('regBirthDate').value = '';
+    document.getElementById('regPin').value = '';
+}
+
+// Log voor debugging
+console.log('Geladen team:', allTeam);
+console.log('Admin exists:', allTeam.some(m => m.admin === true));
+
+// Herlaad data en sla op in nieuwe format
+
+// Check voor web storage event listener
+window.addEventListener('storage', () => {
+    checkNewRegistrations();
+});
+
+// CUSTOM MODAL DIALOGS (geen dubbel-klikken meer)
+function showModal(title, message, buttons = []) {
+    let modal = document.getElementById('customModal');
+    if (!modal) {
+        modal = document.createElement('div');
+        modal.id = 'customModal';
+        modal.innerHTML = `
+            <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; z-index: 10000; align-items: center; justify-content: center;">
+                <div style="background: white; border-radius: 12px; padding: 20px; max-width: 90%; width: 400px; max-height: 80vh; overflow-y: auto;">
+                    <h2 id="modalTitle" style="margin-top: 0; margin-bottom: 15px;"></h2>
+                    <p id="modalMessage" style="line-height: 1.6; margin-bottom: 20px;"></p>
+                    <div id="modalButtons" style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: flex-end;"></div>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+    }
+    
+    const backdrop = modal.querySelector('div');
+    document.getElementById('modalTitle').textContent = title;
+    document.getElementById('modalMessage').textContent = message;
+    
+    const btnContainer = document.getElementById('modalButtons');
+    btnContainer.innerHTML = '';
+    
+    if (buttons.length === 0) {
+        buttons = [{ text: 'OK', action: () => closeModal() }];
+    }
+    
+    buttons.forEach(btn => {
+        const button = document.createElement('button');
+        button.textContent = btn.text;
+        button.style.cssText = btn.style || 'padding: 10px 20px; background: #2B5A7A; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;';
+        button.onclick = (e) => {
+            e.stopPropagation();
+            if (btn.action) btn.action();
+        };
+        btnContainer.appendChild(button);
+    });
+    
+    backdrop.style.display = 'flex';
+}
+
+function closeModal() {
+    const modal = document.getElementById('customModal');
+    if (modal) modal.querySelector('div').style.display = 'none';
+}
+
+// EVENT DELEGATION - Knoppen werken altijd, ook na innerHTML updates
+// Knoppen werken via hun eigen onclick (geen extra click-handler meer)
+
+// Auto-init test data if completely empty (NO data at all)
+// Check if there's absolutely no data
+const hasAdmin = allTeam.some(m => m.admin === true);
+if (allTeam.length === 0 && !hasAdmin) {
+    console.log('ℹ️ Geen data gevonden. Je kunt nu Admin Setup doen!');
+    console.log('Klik "Admin Setup" op het login scherm.');
+}
+
+function checkNewRegistrations() {
+    const pending = allTeam.filter(m => m.role === 'Pending').length;
+    const badge = document.getElementById('newRequestsBadge');
+    const badgeCount = document.getElementById('badgeCount');
+    
+    if (pending > 0 && document.getElementById('loginScreen').style.display === 'flex') {
+        badgeCount.textContent = pending;
+        badge.style.display = 'block';
+    }
+}
+
+// Check elke 5 seconden
+setInterval(checkNewRegistrations, 5000);
+
+// Check ook direct
+checkNewRegistrations();
+
+// Luister naar changes in localStorage (van andere tabs)
+window.addEventListener('storage', () => {
+    checkNewRegistrations();
+});
+
+function showForgotPassword() {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('forgotPasswordScreen').style.display = 'flex';
+}
+
+function hideForgotPassword() {
+    document.getElementById('forgotPasswordScreen').style.display = 'none';
+    document.getElementById('loginScreen').style.display = 'flex';
+}
+
+function resetAdminPin() {
+    const email = document.getElementById('forgotEmail').value.trim().toLowerCase();
+    const birthYear = document.getElementById('forgotBirthYear').value.trim();
+    const newPin = document.getElementById('forgotNewPin').value.trim();
+    
+    if (!email || !birthYear || !newPin) {
+        alert('Alle velden zijn verplicht');
+        return;
+    }
+    
+    // Herlaad data
+    
+    // Debug: toon admin accounts
+    const admins = allTeam.filter(m => m.admin);
+    if (admins.length === 0) {
+        alert('❌ Geen admin account gevonden!\n\nKlik "Admin Setup" om een admin account aan te maken.');
+        return;
+    }
+    
+    // Zoek admin account (case-insensitive)
+    const admin = allTeam.find(m => m.admin && m.email.toLowerCase() === email);
+    if (!admin) {
+        alert('❌ Admin email niet gevonden.\n\nGevonden admin email: ' + admins[0].email);
+        return;
+    }
+    
+    // Check geboortejaar
+    if (admin.birthYear !== birthYear) {
+        alert('❌ Geboortejaar is onjuist');
+        return;
+    }
+    
+    if (!newPin || newPin.length < 2) {
+        alert('PIN moet minstens 2 tekens zijn');
+        return;
+    }
+    
+    // Reset PIN
+    admin.pin = newPin;
+    saveData('team', allTeam);
+    
+    alert('✅ PIN gewijzigd naar: ' + newPin + '\n\nJe kunt nu inloggen.');
+    hideForgotPassword();
+    
+    // Clear form
+    document.getElementById('forgotEmail').value = '';
+    document.getElementById('forgotBirthYear').value = '';
+    document.getElementById('forgotNewPin').value = '';
+}
+
+function cleanResetAndSetup() {
+    // Alleen het formulier tonen. Er wordt niets gewist.
+    showAdminSetup();
+}
+
+function showAdminSetup() {
+    // Check of er al een admin bestaat
+    const adminExists = allTeam.some(m => m.admin === true);
+    if (adminExists) {
+        showModal('Admin bestaat', 'Admin account bestaat al.\n\nLog in met je email en PIN.', [{ text: 'OK', action: closeModal }]);
+        return;
+    }
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminSetup').style.display = 'flex';
+}
+
+function hideAdminSetup() {
+    document.getElementById('adminSetup').style.display = 'none';
+    document.getElementById('loginScreen').style.display = 'flex';
+}
+
+async function createAdminAccount() {
+    const email = document.getElementById('adminEmail').value.trim().toLowerCase();
+    const pin = document.getElementById('adminPin').value.trim();
+    const birthYear = document.getElementById('adminBirthYear').value.trim();
+    const name = document.getElementById('adminName').value.trim() || 'Admin';
+    
+    if (!email || !pin || !birthYear || !name) {
+        showModal('Fout', 'Alle velden zijn verplicht!', [{ text: 'OK', action: closeModal }]);
+        return;
+    }
+    
+    // Herlaad team data (clean slate)
+    
+    // Controleer op de SERVER of er al een admin is
+    let serverTeam = [];
+    try {
+        const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 8000));
+        const snap = await Promise.race([db.ref(DATA_PATHS.team).once('value'), timeout]);
+        serverTeam = readTeam(snap);
+    } catch (err) {
+        showModal('Fout', '❌ Kan de server niet bereiken. Controleer je internetverbinding.', [{ text: 'OK', action: closeModal }]);
+        return;
+    }
+    allTeam = serverTeam;
+    const adminExists = serverTeam.some(m => m.admin === true);
+    if (adminExists) {
+        showModal('Fout', '❌ Admin account bestaat al!\n\nAls je de admin wilt resetten, vraag een beheerder.', [{ text: 'OK', action: closeModal }]);
+        return;
+    }
+    
+    if (allTeam.some(m => m.email.toLowerCase() === email.toLowerCase())) {
+        showModal('Fout', 'Dit email adres is al in gebruik', [{ text: 'OK', action: closeModal }]);
+        return;
+    }
+    
+    // Validatie PIN
+    if (pin.length < 4) {
+        showModal('Fout', 'PIN moet minstens 4 karakters zijn!', [{ text: 'OK', action: closeModal }]);
+        return;
+    }
+    
+    // Voeg admin toe
+    const adminAccount = {
+        name: name,
+        email: email,
+        pin: pin.toString(), // Zorg dat PIN een string is
+        birthYear: birthYear,
+        role: 'Admin',
+        status: '',
+        admin: true,
+        editor: false, // Admin hoeft niet ook editor te zijn
+        created: new Date().toISOString()
+    };
+    
+    console.log('Creating admin account:', adminAccount);
+    
+    allTeam.push(adminAccount);
+    const saved = JSON.stringify(allTeam);
+    saveData('team', allTeam);
+    
+    console.log('Saved to localStorage:', saved);
+    
+    // Reload data
+    console.log('Reloaded from localStorage:', allTeam);
+    
+    // Toon succes
+    showModal('✅ Succes!', 'Admin account aangemaakt!\n\nEmail: ' + email + '\nPIN: ' + pin + '\n\nLog nu in.', 
+        [{ text: 'Naar login', action: () => { closeModal(); hideAdminSetup(); } }]
+    );
+    
+    // Wis velden
+    document.getElementById('adminEmail').value = '';
+    document.getElementById('adminName').value = '';
+    document.getElementById('adminPin').value = '';
+    document.getElementById('adminBirthYear').value = '';
+}
+
+// Bij page load: check of we auto-inloggen kunnen
+window.addEventListener('DOMContentLoaded', () => {
+    const savedUser = localStorage.getItem('rooster_remembered_user');
+    const biometricBtn = document.getElementById('biometricBtn');
+    const forgetBtn = document.getElementById('forgetBtn');
+    
+    if (savedUser && biometricBtn) {
+        biometricBtn.style.display = 'block';
+        if (forgetBtn) forgetBtn.style.display = 'block';
+        const user = JSON.parse(savedUser);
+        biometricBtn.textContent = '🔒 Inloggen als ' + user.name;
+    }
+});
+
+function forgetThisDevice() {
+    if (!confirm('Vergeten op dit apparaat?\n\nVolgende keer moet je je email en PIN invoeren.')) return;
+    
+    localStorage.removeItem('rooster_remembered_user');
+    document.getElementById('biometricBtn').style.display = 'none';
+    document.getElementById('forgetBtn').style.display = 'none';
+    
+    showModal('Vergeten', '✅ Dit apparaat is vergeten.\n\nVolgende keer login je normaal met email en PIN.', 
+        [{ text: 'OK', action: closeModal }]
+    );
+}
+
+// Toont het juiste scherm voor deze gebruiker (admin / editor / teamlid)
+function enterApp(user) {
+    sessionStorage.setItem('rooster_session_email', user.email);
+    // Alle tabs eerst weer tonen; editor-regel verbergt daarna de rest
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.style.display = 'block');
+    currentUser = user;
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('adminSetup').style.display = 'none';
+    document.getElementById('mainApp').style.display = 'block';
+    
+    if (user.admin) {
+        document.getElementById('adminDashboard').style.display = 'block';
+        document.getElementById('teamView').style.display = 'none';
+        
+        // Toon alle tabs voor volledige admin
+        const allTabButtons = document.querySelectorAll('.tab-btn');
+        allTabButtons.forEach(btn => btn.style.display = 'block');
+        
+        renderAdminDashboard();
+        
+        // Check voor nieuwe registraties
+        const pendingRequests = allTeam.filter(m => m.role === 'Pending');
+        if (pendingRequests.length > 0) {
+            setTimeout(() => {
+                showModal('Nieuwe registraties', '🔔 Je hebt ' + pendingRequests.length + ' registratieverzoek(en)!\n\nGa naar "Registraties" om ze goed te keuren.', 
+                    [{ text: 'OK', action: closeModal }]
+                );
+            }, 500);
+        }
+    } else if (user.editor) {
+        // Editor: mag ALLEEN diensten bewerken
+        document.getElementById('adminDashboard').style.display = 'block';
+        document.getElementById('teamView').style.display = 'none';
+        
+        // Verberg alle tabs behalve "Diensten"
+        const allTabButtons = document.querySelectorAll('.tab-btn');
+        allTabButtons.forEach(btn => {
+            const onclick = btn.getAttribute('onclick');
+            if (onclick && onclick.includes("'services'")) {
+                btn.style.display = 'block';
+            } else {
+                btn.style.display = 'none';
+            }
+        });
+        
+        // Ga direct naar Diensten tab
+        switchAdminTab('services');
+        
+    } else {
+        document.getElementById('adminDashboard').style.display = 'none';
+        document.getElementById('teamView').style.display = 'block';
+        renderTeamView();
+        
+        // Check reminders elke minuut
+        setInterval(() => {
+            const reminderSettings = JSON.parse(localStorage.getItem('reminder_' + currentUser.email) || '{"enabled": false}');
+            if (reminderSettings.enabled) {
+                scheduleReminders();
+            }
+        }, 60 * 1000);
+    }
+    
+    // Wis login velden
+    document.getElementById('loginEmail').value = '';
+    document.getElementById('loginPin').value = '';
+    
+    // Verberg badge
+    document.getElementById('newRequestsBadge').style.display = 'none';
+}
+
+async function handleLogin() {
+    // Haal RUWE waarden op
+    const emailRaw = document.getElementById('loginEmail');
+    const pinRaw = document.getElementById('loginPin');
+    
+    if (!emailRaw || !pinRaw) {
+        showModal('Fout', 'Formulier elementen niet gevonden!', [{ text: 'OK', action: closeModal }]);
+        console.error('Login form elements missing!');
+        return;
+    }
+    
+    // Verwerk en valideer
+    const email = emailRaw.value ? emailRaw.value.trim().toLowerCase() : '';
+    const pin = pinRaw.value ? pinRaw.value.trim() : '';
+    const rememberMe = document.getElementById('rememberMe').checked;
+    
+    // Strenge validatie
+    if (!email || email.length === 0) {
+        showModal('Fout', '❌ Email is verplicht!\n\nVul een geldig email in.', [{ text: 'OK', action: closeModal }]);
+        return;
+    }
+    
+    if (!pin || pin.length === 0) {
+        showModal('Fout', '❌ PIN is verplicht!\n\nVul je PIN (4 cijfers) in.', [{ text: 'OK', action: closeModal }]);
+        return;
+    }
+    
+    if (pin.length < 4) {
+        showModal('Fout', '❌ PIN moet minstens 4 cijfers zijn!', [{ text: 'OK', action: closeModal }]);
+        return;
+    }
+    
+    try {
+        await loadTeamFromServer();
+    } catch (err) {
+        showModal('Fout', '❌ Kan de server niet bereiken. Controleer je internetverbinding en probeer opnieuw.', [{ text: 'OK', action: closeModal }]);
+        return;
+    }
+    
+    console.log('Login attempt:', email, 'PIN:', pin);
+    console.log('Team data:', allTeam);
+    
+    // Zoek user met case-insensitive email EN trim PIN
+    const user = allTeam.find(m => {
+        const emailMatch = m.email && m.email.toLowerCase() === email;
+        const pinMatch = m.pin && m.pin.toString().trim() === pin.toString().trim();
+        if (m.email && m.email.toLowerCase() === email) {
+            console.log('Found user:', m.name, '| PIN in system:', m.pin, '| PIN entered:', pin, '| Match:', pinMatch);
+        }
+        return emailMatch && pinMatch;
+    });
+    
+    if (!user) {
+        showModal('Inloggen mislukt', '❌ Email of PIN incorrect.\n\nControleer je gegevens.', [{ text: 'OK', action: closeModal }]);
+        return;
+    }
+    
+    // Check of account goedgekeurd is (admins en goedgekeurde leden kunnen inloggen)
+    if (!user.admin && user.role === 'Pending') {
+        showModal('Wacht op goedkeuring', '⏳ Je account wacht nog op goedkeuring van de admin.\n\nJe ontvangt een bericht zodra dit klaar is.', 
+            [{ text: 'OK', action: closeModal }]
+        );
+        return;
+    }
+    
+    console.log('Login succesvol voor:', user.name);
+    
+    // Sla op als "Onthouden" aangevinkt
+    if (rememberMe) {
+        localStorage.setItem('rooster_remembered_user', JSON.stringify({
+            email: user.email,
+            pin: user.pin,
+            name: user.name
+        }));
+        console.log('User opgeslagen voor auto-login');
+    } else {
+        localStorage.removeItem('rooster_remembered_user');
+    }
+    
+    enterApp(user);
+}
+
+// Biometric login (vingerafdruk/gezicht)
+function biometricLogin() {
+    const savedUser = localStorage.getItem('rooster_remembered_user');
+    if (!savedUser) {
+        showModal('Fout', 'Geen opgeslagen gebruiker gevonden', [{ text: 'OK', action: closeModal }]);
+        return;
+    }
+    
+    // Controleer of apparaat biometric ondersteunt
+    if (window.PublicKeyCredential === undefined || typeof window.PublicKeyCredential !== 'function') {
+        // Fallback: auto-login zonder biometric
+        const user = JSON.parse(savedUser);
+        document.getElementById('loginEmail').value = user.email;
+        document.getElementById('loginPin').value = user.pin;
+        handleLogin();
+        return;
+    }
+    
+    // Probeer biometric unlock
+    showModal('🔒 Biometric', 'Plaats je vinger op de sensor of kijk in de camera...', []);
+    
+    setTimeout(() => {
+        // Simuleer biometric (native support is complex)
+        const user = JSON.parse(savedUser);
+        document.getElementById('loginEmail').value = user.email;
+        document.getElementById('loginPin').value = user.pin;
+        closeModal();
+        handleLogin();
+    }, 1500);
+}
+
+function handleLogout() {
+    sessionStorage.removeItem('rooster_session_email');
+    currentUser = null;
+    
+    // Data blijft in geheugen; de live-verbinding houdt het actueel
+    
+    document.getElementById('mainApp').style.display = 'none';
+    document.getElementById('loginScreen').style.display = 'flex';
+    
+    // Zet login velden leeg
+    document.getElementById('loginEmail').value = '';
+    document.getElementById('loginPin').value = '';
+    document.getElementById('rememberMe').checked = false;
+    
+    // Update biometric knop
+    const biometricBtn = document.getElementById('biometricBtn');
+    const savedUser = localStorage.getItem('rooster_remembered_user');
+    if (savedUser && biometricBtn) {
+        const user = JSON.parse(savedUser);
+        biometricBtn.textContent = '🔒 Inloggen als ' + user.name;
+        biometricBtn.style.display = 'block';
+    } else if (biometricBtn) {
+        biometricBtn.style.display = 'none';
+    }
+}
+
+function switchAdminTab(tab) {
+    // Verwijder active van alle tabs en buttons
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    
+    // Voeg active toe aan juiste tab
+    const tabEl = document.getElementById(tab + 'Tab');
+    if (tabEl) {
+        tabEl.classList.add('active');
+    }
+    
+    // Vind en activeer de juiste button
+    // Zoek naar button met onclick="switchAdminTab('...')"
+    const buttons = document.querySelectorAll('.tab-btn');
+    buttons.forEach(btn => {
+        const onclick = btn.getAttribute('onclick');
+        if (onclick && onclick.includes(`'${tab}'`)) {
+            btn.classList.add('active');
+        }
+    });
+    
+    // Render content
+    if (tab === 'requests') renderRegistrationRequests();
+    if (tab === 'team') renderTeamList();
+    if (tab === 'services') renderServicesList();
+    if (tab === 'matrix') { renderRoleOverview(); renderAvailabilityMatrix(); }
+}
+
+// Overzicht per datum en per rol (admin): wie kan, wie is ingedeeld, wie kan niet
+function renderRoleOverview() {
+    const host = document.getElementById('roleOverview');
+    if (!host) return;
+    const roles = ['Video', 'Geluid', 'Multimedia', 'Licht'];
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const dates = [...new Set(allServices.map(s => s.date))]
+        .filter(d => new Date(d + 'T00:00:00') >= today)
+        .sort();
+    if (!dates.length) {
+        host.innerHTML = '<p style="color: #999;">Geen komende diensten.</p>';
+        return;
+    }
+    const members = allTeam.filter(m => !m.admin && m.role && m.role !== 'Pending');
+    const label = r => r === 'Video' ? 'Video (livestream)' : r;
+    const nameOf = email => {
+        const m = allTeam.find(x => x.email === email);
+        return m ? firstNameOf(m.name) : '?';
+    };
+
+    let html = '<div style="overflow-x: auto;"><table style="width: 100%; border-collapse: collapse; font-size: 13px;">';
+    html += '<tr style="background: #2B5A7A; color: white;"><th style="padding: 6px; text-align: left;">Datum</th>'
+        + roles.map(r => `<th style="padding: 6px;">${label(r)}</th>`).join('') + '</tr>';
+
+    dates.forEach(date => {
+        const servicesOnDate = allServices.filter(s => s.date === date);
+        const blockedEmails = new Set(allBlockouts.filter(b => b.date === date).map(b => b.email));
+        html += `<tr style="border-bottom: 1px solid #ddd;"><td style="padding: 6px; vertical-align: top;"><strong>${formatDutchDate(date)}</strong></td>`;
+        roles.forEach(role => {
+            const eligible = members.filter(m => m.role === role || m.role === 'Techniek Lead');
+            const available = eligible.filter(m => !blockedEmails.has(m.email));
+            const unavailable = eligible.filter(m => blockedEmails.has(m.email));
+            const assigned = servicesOnDate.map(s => s.roles && s.roles[role]).filter(Boolean);
+            const assignedHtml = assigned.length
+                ? assigned.map(e => `<div style="font-weight: bold; color: ${blockedEmails.has(e) ? '#c0392b' : '#2B5A7A'};">${blockedEmails.has(e) ? '⚠ ' : ''}${nameOf(e)}</div>`).join('')
+                : '<div style="color: #e67e22;">— nog niemand</div>';
+            const countColor = available.length === 0 ? '#c0392b' : (available.length < 2 ? '#e67e22' : '#27AE60');
+            const unavailableHtml = unavailable.length
+                ? `<div style="color: #c0392b; font-size: 11px; margin-top: 3px;">Kan niet: ${unavailable.map(m => firstNameOf(m.name)).join(', ')}</div>`
+                : '';
+            html += `<td style="padding: 6px; vertical-align: top; text-align: center;">
+                <div style="color: ${countColor}; font-weight: bold;">${available.length}/${eligible.length} beschikbaar</div>
+                ${assignedHtml}${unavailableHtml}
+            </td>`;
+        });
+        html += '</tr>';
+    });
+    html += '</table></div>';
+    host.innerHTML = html;
+}
+
+function renderAvailabilityMatrix() {
+    const el = document.getElementById('matrixContent');
+    if (!el) return;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const services = allServices
+        .filter(s => new Date(s.date + 'T00:00:00') >= today)
+        .sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time))
+        .slice(0, 12);
+    if (!services.length) {
+        el.innerHTML = '<p style="color: #999;">Geen komende diensten.</p>';
+        return;
+    }
+    const people = allTeam.filter(m => !m.admin && m.role && m.role !== 'Pending');
+    const roles = ['Video', 'Geluid', 'Multimedia', 'Licht'];
+    const firstName = n => (n || '').split(' ')[0];
+    const blockedOn = (email, date) => allBlockouts.some(b => b.email === email && b.date === date);
+
+    const header = services.map(s => {
+        const cantCount = people.filter(p => blockedOn(p.email, s.date)).length;
+        const d = new Date(s.date + 'T00:00:00').toLocaleDateString('nl-NL', { day: 'numeric', month: 'short' });
+        return `<th style="padding: 8px; min-width: 110px; text-align: center; border-bottom: 2px solid #2B5A7A;">
+                    <div style="font-weight: bold;">${d}</div>
+                    <div style="font-size: 11px; color: #666;">${s.time}</div>
+                    <div style="font-size: 11px; font-weight: bold; color: ${cantCount ? '#c0392b' : '#27AE60'};">${cantCount} kunnen niet</div>
+                </th>`;
+    }).join('');
+
+    const rows = roles.map(role => {
+        const cells = services.map(s => {
+            const key = s.date + '|' + s.time;
+            const email = s.roles && s.roles[role];
+            if (!email) {
+                return `<td onclick="openMatrixPicker('${key}', '${role}')" style="padding: 8px; text-align: center; background: #fff5f5; color: #c0392b; font-weight: bold; cursor: pointer;">+ Nodig</td>`;
+            }
+            const m = allTeam.find(x => x.email === email);
+            const name = m ? firstName(m.name) : email;
+            const blocked = blockedOn(email, s.date);
+            return `<td onclick="openMatrixPicker('${key}', '${role}')" style="padding: 8px; text-align: center; cursor: pointer; background: ${blocked ? '#fff5f5' : '#f8fbff'};">
+                        <span style="color: ${blocked ? '#c0392b' : '#2B5A7A'}; font-weight: bold;">${blocked ? '⚠️ ' : ''}${name}</span>
+                    </td>`;
+        }).join('');
+        const label = role === 'Video' ? 'Video (livestream)' : role;
+        return `<tr><th style="padding: 8px; text-align: left; background: #f2f6fa; white-space: nowrap; position: sticky; left: 0; z-index: 2; box-shadow: 2px 0 0 #ddd;">${label}</th>${cells}</tr>`;
+    }).join('');
+
+    el.innerHTML = `
+        <div style="overflow-x: auto;">
+            <table style="border-collapse: collapse; width: 100%; font-size: 13px;">
+                <thead><tr><th style="text-align: left; padding: 8px; background: #fff; position: sticky; left: 0; z-index: 3; box-shadow: 2px 0 0 #ddd;">Rol</th>${header}</tr></thead>
+                <tbody>${rows}</tbody>
+            </table>
+        </div>
+        <p style="font-size: 12px; color: #666; margin-top: 8px;">Tik op een cel om iemand in te plannen. ⚠️ = heeft aangegeven niet te kunnen.</p>`;
+}
+
+// ===== Persoon inplannen vanuit de matrix =====
+function openMatrixPicker(key, role) {
+    const idx = findServiceIndex(key);
+    if (idx < 0) return;
+    const s = allServices[idx];
+    const people = allTeam
+        .filter(m => !m.admin && m.role && m.role !== 'Pending')
+        .sort((a, b) => {
+            const aM = (a.role === role || a.role === 'Techniek Lead') ? 0 : 1;
+            const bM = (b.role === role || b.role === 'Techniek Lead') ? 0 : 1;
+            return aM - bM || (a.name || '').localeCompare(b.name || '');
+        });
+    window._matrixPeople = people;
+
+    const d = new Date(s.date + 'T00:00:00').toLocaleDateString('nl-NL', { weekday: 'long', day: 'numeric', month: 'long' });
+    const label = role === 'Video' ? 'Video (livestream)' : role;
+    let buttons = '';
+    people.forEach((m, i) => {
+        const blocked = allBlockouts.some(b => b.email === m.email && b.date === s.date);
+        const roleNote = (m.role === role || m.role === 'Techniek Lead') ? '' : ' (' + m.role + ')';
+        buttons += `<button onclick="matrixPick('${key}', '${role}', ${i})" style="display: block; width: 100%; margin: 6px 0; padding: 10px; border: none; border-radius: 6px; text-align: left; cursor: pointer; background: ${blocked ? '#fff5f5' : '#f8fbff'}; color: #2B5A7A; font-weight: bold; border: 1px solid #ddd;">
+                    ${m.name}${roleNote}${blocked ? ' ⚠️ kan niet' : ''}
+                </button>`;
+    });
+    buttons += `<button onclick="matrixPick('${key}', '${role}', -1)" style="display: block; width: 100%; margin: 14px 0 6px; padding: 10px; border: none; border-radius: 6px; background: #E74C3C; color: white; font-weight: bold; cursor: pointer;">Plek leegmaken</button>`;
+    buttons += `<button onclick="closeMatrixPicker()" style="display: block; width: 100%; margin: 6px 0; padding: 10px; border: none; border-radius: 6px; background: #95A5A6; color: white; font-weight: bold; cursor: pointer;">Annuleren</button>`;
+
+    let overlay = document.getElementById('matrixPicker');
+    if (overlay) overlay.remove();
+    overlay = document.createElement('div');
+    overlay.id = 'matrixPicker';
+    overlay.innerHTML = `
+        <div style="position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 10001;">
+            <div style="background: white; border-radius: 12px; padding: 20px; width: 92%; max-width: 420px; max-height: 85vh; overflow-y: auto;">
+                <h3 style="margin-top: 0; color: #2B5A7A;">${label}</h3>
+                <p style="color: #555; margin-top: 0;">${d} • ${s.time}</p>
+                ${buttons}
+            </div>
+        </div>`;
+    document.body.appendChild(overlay);
+}
+
+function closeMatrixPicker() {
+    const overlay = document.getElementById('matrixPicker');
+    if (overlay) overlay.remove();
+}
+
+function matrixPick(key, role, i) {
+    const idx = findServiceIndex(key);
+    if (idx < 0) { closeMatrixPicker(); return; }
+    const s = allServices[idx];
+    s.roles = s.roles || {};
+
+    if (i < 0) {
+        s.roles[role] = '';
+    } else {
+        const m = (window._matrixPeople || [])[i];
+        if (!m) return;
+        const otherRole = Object.keys(s.roles).find(r => r !== role && s.roles[r] === m.email);
+        if (otherRole) {
+            showModal('Let op', m.name + ' staat al op deze dienst als ' + otherRole + '.', [{ text: 'OK', action: closeModal }]);
+            return;
+        }
+        const blocked = allBlockouts.some(b => b.email === m.email && b.date === s.date);
+        if (blocked && !confirm(m.name + ' heeft aangegeven niet te kunnen op deze datum.\n\nToch inplannen?')) return;
+        s.roles[role] = m.email;
+    }
+
+    saveData('services', allServices);
+    closeMatrixPicker();
+    renderAvailabilityMatrix();
+    renderServicesList();
+}
+
+function renderAdminDashboard() {
+    document.getElementById('teamCount').textContent = allTeam.filter(m => !m.admin && m.role !== 'Pending').length;
+    document.getElementById('serviceCount').textContent = allServices.length;
+    document.getElementById('blockoutCount').textContent = allBlockouts.length;
+    
+    // Toon badge voor registratieverzoeken
+    const pendingRequests = allTeam.filter(m => m.role === 'Pending').length;
+    const badge = document.getElementById('requestBadge');
+    if (pendingRequests > 0) {
+        badge.textContent = pendingRequests;
+        badge.style.display = 'inline-block';
+    } else {
+        badge.style.display = 'none';
+    }
+    
+    const upcoming = allServices.filter(s => new Date(s.date) >= new Date()).slice(0, 5);
+    document.getElementById('upcomingServices').innerHTML = upcoming.length ? 
+        upcoming.map(s => `
+            <div class="service-card">
+                <strong>${s.desc || 'Dienst'}</strong><br>
+                <small>${new Date(s.date).toLocaleDateString('nl-NL')} • ${s.time}</small>
+            </div>
+        `).join('') : 
+        '<p style="color: #999;">Geen komende diensten</p>';
+    
+    const abEl = document.getElementById('allBlockouts');
+    if (abEl) abEl.innerHTML = allBlockouts.length ?
+        allBlockouts.map(b => {
+            const member = allTeam.find(m => m.email === b.email);
+            return `
+                <div class="service-card">
+                    <strong>${member?.name || b.email}</strong><br>
+                    <small>${new Date(b.date).toLocaleDateString('nl-NL')}</small>
+                    ${b.reason ? '<br><small>Reden: ' + b.reason + '</small>' : ''}
+                </div>
+            `;
+        }).join('') :
+        '<p style="color: #999;">Geen block-outs</p>';
+}
+
+function renderRegistrationRequests() {
+    const requests = allTeam.filter(m => m.role === 'Pending');
+    
+    // Update badge in tab
+    const badge = document.getElementById('requestBadge');
+    if (requests.length > 0) {
+        badge.textContent = requests.length;
+        badge.style.display = 'inline-block';
+    } else {
+        badge.style.display = 'none';
+    }
+    
+    if (requests.length === 0) {
+        document.getElementById('registrationRequests').innerHTML = '<p style="color: #999;">Geen registratieverzoeken</p>';
+        return;
+    }
+    
+    const html = requests.map((req, idx) => `
+        <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: start;">
+                <div style="flex: 1;">
+                    <strong>${req.name}</strong><br>
+                    <small style="color: #666;">
+                        Email: ${req.email}<br>
+                        Telefoon: ${req.phone}<br>
+                        Geboortedatum: ${new Date(req.birthDate).toLocaleDateString('nl-NL')}<br>
+                        Aangemeld: ${new Date(req.created).toLocaleDateString('nl-NL')}
+                    </small>
+                </div>
+                <div style="display: flex; gap: 5px; flex-direction: column;">
+                    <button class="primary" onclick="approveRegistration('${req.email}')" style="padding: 6px 12px;">Goedkeuren</button>
+                    <button class="danger" onclick="rejectRegistration('${req.email}')" style="padding: 6px 12px;">Afwijzen</button>
+                </div>
+            </div>
+        </div>
+    `).join('');
+    
+    document.getElementById('registrationRequests').innerHTML = html;
+}
+
+// ===== MAIL HULPFUNCTIES (opent je eigen e-mailprogramma) =====
+function mailLink(to, subject, body) {
+    return 'mailto:' + encodeURIComponent(to) +
+        '?subject=' + encodeURIComponent(subject) +
+        '&body=' + encodeURIComponent(body);
+}
+
+function firstNameOf(fullName) {
+    return (fullName || '').split(' ')[0];
+}
+
+function formatDutchDate(dateStr) {
+    const d = new Date(dateStr + 'T00:00:00');
+    return d.toLocaleDateString('nl-NL', { weekday: 'long', day: 'numeric', month: 'long' });
+}
+
+function welcomeMailFor(member) {
+    const voornaam = firstNameOf(member.name);
+    const subject = 'Welkom in het techniekteam, ' + voornaam + '!';
+    const body =
+        'Beste ' + voornaam + ',\n\n' +
+        'Wat fijn dat je bent goedgekeurd! Welkom in het techniekteam van Kijk Omhoog.\n\n' +
+        'Je kunt nu inloggen in de Rooster Techniek app. Daar zie je je diensten en geef je door wanneer je niet beschikbaar bent.\n\n' +
+        'We kijken uit naar de samenwerking!\n\n' +
+        'Met vriendelijke groet,\n' +
+        'Remko Meijer';
+    return mailLink(member.email, subject, body);
+}
+
+function serviceMailFor(member, service, roleLabel) {
+    const voornaam = firstNameOf(member.name);
+    const dag = formatDutchDate(service.date);
+    const subject = 'Je bent ingedeeld op ' + dag;
+    let body =
+        'Beste ' + voornaam + ',\n\n' +
+        'Je bent ingedeeld voor ' + roleLabel + ' op ' + dag + ' om ' + service.time + ' uur';
+    if (service.desc) body += ' (' + service.desc + ')';
+    body += '.\n\n';
+    if (service.notes) body += 'Let op: ' + service.notes + '\n\n';
+    body += 'Kun je niet? Geef dit dan zo snel mogelijk door in de app, zodat we iemand anders kunnen zoeken.\n\n' +
+        'Tot dan!\n\n' +
+        'Met vriendelijke groet,\n' +
+        'Remko Meijer';
+    return mailLink(member.email, subject, body);
+}
+
+function approveRegistration(email) {
+    const member = allTeam.find(m => m.email.toLowerCase() === email.toLowerCase());
+    if (!member) return;
+    
+    // Nieuw goedgekeurd lid krijgt nog geen rol; admin kent die later toe
+    member.role = 'Geen rol';
+    member.approved = true;
+    
+    saveData('team', allTeam);
+    showModal('✅ Goedgekeurd', member.name + ' is goedgekeurd. Wil je een welkomstmail sturen?\n\nJe kunt de rol later instellen via Team → Bewerk.', [
+        { text: '✉️ Welkomstmail sturen', action: () => { window.location.href = welcomeMailFor(member); closeModal(); } },
+        { text: 'Later', action: closeModal, style: 'padding: 10px 20px; background: #95A5A6; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;' }
+    ]);
+    
+    renderRegistrationRequests();
+    renderTeamList();
+    renderAdminDashboard();
+}
+
+function rejectRegistration(email) {
+    if (!confirm('Registratie afwijzen?')) return;
+    
+    allTeam = allTeam.filter(m => m.email !== email);
+    saveData('team', allTeam);
+    
+    alert('Registratie afgewezen');
+    renderRegistrationRequests();
+    renderAdminDashboard();
+}
+
+function renderTeamList() {
+    const html = allTeam.filter(m => !m.admin && m.role !== 'Pending').map(member => {
+        let rolesText = member.role;
+        if (member.role === 'Techniek Lead') {
+            rolesText = 'Techniek Lead (alle rollen)';
+        }
+        return `
+        <div class="team-member" style="flex-direction: column; align-items: start;">
+            <div style="width: 100%; margin-bottom: 10px;">
+                <strong>${member.name}</strong><br>
+                <small style="color: #666;">
+                    Email: ${member.email}<br>
+                    Telefoon: ${member.phone || '–'}<br>
+                    Geboortedatum: ${member.birthDate ? new Date(member.birthDate).toLocaleDateString('nl-NL') : '–'}<br>
+                    Rol: ${rolesText}
+                </small>
+                ${member.status ? '<br><span class="badge badge-' + member.status + '">' + 
+                    (member.status === 'expert' ? '🌟 Expert' :
+                     member.status === 'good' ? '✅ Goed' :
+                     member.status === 'competent' ? '👍 Competent' :
+                     member.status === 'beginner' ? '📚 Beginner' :
+                     member.status === 'training' ? '🎓 In Training' :
+                     member.status === 'specialized' ? '🔧 Gespecialiseerd' :
+                     member.status === 'reserve' ? '🔄 Reserve' :
+                     member.status === 'unsuitable' ? '❌ Niet Geschikt' : member.status) + '</span>' : ''}
+            </div>
+            <div style="display: flex; gap: 5px; width: 100%; flex-wrap: wrap;">
+                <button onclick="editTeamMember('${member.email}')" style="padding: 6px 12px; flex: 1; min-width: 80px;">Bewerk</button>
+                <button onclick="toggleEditorRole('${member.email}', ${member.editor || false})" style="padding: 6px 12px; flex: 1; min-width: 120px; background: ${(member.editor ? '#27AE60' : '#95A5A6')};">
+                    ${member.editor ? '👤 Is Editor' : '➕ Maak Editor'}
+                </button>
+                <button class="danger" onclick="deleteTeamMember('${member.email}')" style="padding: 6px 12px; flex: 1; min-width: 80px;">Verwijder</button>
+            </div>
+        </div>
+    `;
+    }).join('');
+    
+    document.getElementById('teamListAdmin').innerHTML = html || '<p style="color: #999;">Geen team-leden</p>';
+}
+
+function renderServicesList() {
+    const html = allServices.map((s, idx) => `
+        <div class="service-card">
+            <div style="display: flex; justify-content: space-between; align-items: start; gap: 10px;">
+                <div style="flex: 1;">
+                    <strong>${s.desc || 'Dienst'}</strong><br>
+                    <small style="color: #666;">${new Date(s.date).toLocaleDateString('nl-NL')} • ${s.time}</small><br>
+                    ${s.roles ? Object.entries(s.roles).map(([role, email]) => {
+                        const person = allTeam.find(m => m.email.toLowerCase() === email.toLowerCase());
+                        return `<small><strong>${role}:</strong> ${person?.name || '–'}</small><br>`;
+                    }).join('') : ''}
+                    ${s.notes ? `<div style="background: #f0f8ff; padding: 8px; border-radius: 4px; margin-top: 8px; border-left: 3px solid #2B5A7A; font-size: 12px;"><strong>📝</strong> ${s.notes}</div>` : ''}
+                </div>
+                <div style="display: flex; gap: 5px; flex-wrap: wrap; justify-content: flex-end;">
+                    <button onclick="editService('${s.date}|${s.time}')" style="padding: 6px 12px; font-size: 12px;">Bewerk</button>
+                    <button class="danger" onclick="deleteService('${s.date}|${s.time}')" style="padding: 6px 12px; font-size: 12px;">Verwijder</button>
+                </div>
+            </div>
+        </div>
+    `).join('');
+    
+    document.getElementById('servicesListAdmin').innerHTML = html || '<p style="color: #999;">Geen diensten</p>';
+}
+
+// Zet of haalt de eigen blokkering voor één dienst (één tik)
+function toggleMyAvailability(date) {
+    if (!currentUser) return;
+    const existing = allBlockouts.find(b => b.email === currentUser.email && b.date === date);
+    if (existing) {
+        removeBlockouts(b => b.email === currentUser.email && b.date === date);
+        renderTeamView();
+        return;
+    }
+    const reason = prompt('Reden van afwezigheid (verplicht):', '');
+    if (reason === null) return;
+    const cleanReason = reason.trim();
+    if (!cleanReason) {
+        showModal('Let op', 'Vul een reden van afwezigheid in.', [{ text: 'OK', action: closeModal }]);
+        return;
+    }
+    const id = db.ref(DATA_PATHS.blockouts).push().key;
+    const item = { id, email: currentUser.email, date, reason: cleanReason, created: new Date().toISOString() };
+    allBlockouts.push(item);
+    db.ref(DATA_PATHS.blockouts + '/' + id).set(item).catch(err => {
+        console.error('Blokkering opslaan mislukt:', err);
+        showModal('Fout', '❌ Opslaan van je beschikbaarheid is mislukt. Probeer het opnieuw.', [{ text: 'OK', action: closeModal }]);
+    });
+    renderTeamView();
+}
+
+// Lijst met alle komende datums: teamlid geeft zelf aan wanneer niet
+function renderMyAvailability() {
+    const el = document.getElementById('myAvailability');
+    if (!el || !currentUser) return;
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const seen = new Set();
+    const upcoming = allServices
+        .filter(s => new Date(s.date + 'T00:00:00') >= today)
+        .sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time))
+        .filter(s => {
+            if (seen.has(s.date)) return false;
+            seen.add(s.date);
+            return true;
+        });
+    if (!upcoming.length) {
+        el.innerHTML = '<p style="color: #999;">Er zijn nog geen komende diensten.</p>';
+        return;
+    }
+    el.innerHTML = upcoming.map(s => {
+        const blocked = allBlockouts.some(b => b.email === currentUser.email && b.date === s.date);
+        return `
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 10px; margin: 6px 0; border: 1px solid #ddd; border-radius: 6px; background: ${blocked ? '#fff5f5' : '#f8fbff'};">
+                <div style="flex: 1;">
+                    <strong>${formatDutchDate(s.date)}</strong>
+                    <br><small style="color: ${blocked ? '#c0392b' : '#27AE60'}; font-weight: bold;">${blocked ? 'Niet beschikbaar' : 'Beschikbaar'}</small>
+                </div>
+                <button onclick="toggleMyAvailability('${s.date}')" style="padding: 8px 12px; border: none; border-radius: 6px; color: white; font-weight: bold; white-space: nowrap; cursor: pointer; background: ${blocked ? '#27AE60' : '#E74C3C'};">
+                    ${blocked ? 'Zet op beschikbaar' : 'Zet op niet beschikbaar'}
+                </button>
+            </div>`;
+    }).join('');
+}
+
+// Welk tabblad is actief in het teamlid-scherm
+let currentTeamTab = 'diensten';
+function showTeamTab(tab) {
+    currentTeamTab = tab;
+    document.getElementById('cardDiensten').style.display = tab === 'diensten' ? 'block' : 'none';
+    document.getElementById('cardBeschikbaarheid').style.display = tab === 'beschikbaarheid' ? 'block' : 'none';
+    document.getElementById('tabBtnDiensten').style.opacity = tab === 'diensten' ? '1' : '0.6';
+    document.getElementById('tabBtnBeschikbaarheid').style.opacity = tab === 'beschikbaarheid' ? '1' : '0.6';
+}
+
+function renderTeamView() {
+    const myServices = allServices
+        .filter(s => Object.values(s.roles || {}).includes(currentUser.email))
+        .sort((a, b) => new Date(a.date) - new Date(b.date));
+    
+    document.getElementById('myServices').innerHTML = myServices.length ?
+        myServices.map((s, idx) => {
+            const isBlocked = allBlockouts.some(b => b.email === currentUser.email && b.date === s.date);
+            
+            // Vind de rol van de huidige user in deze dienst
+            let myRole = null;
+            for (const [role, email] of Object.entries(s.roles || {})) {
+                if (email && email.toLowerCase() === currentUser.email.toLowerCase()) {
+                    myRole = role;
+                    break;
+                }
+            }
+            
+            return `
+                <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; padding: 8px 10px; margin: 6px 0; border-radius: 6px; background: ${isBlocked ? '#fff5f5' : '#f8fbff'}; border-left: 4px solid ${isBlocked ? '#dc3545' : '#87CEEB'};">
+                    <div style="flex: 1; min-width: 180px;">
+                        <strong>${new Date(s.date).toLocaleDateString('nl-NL', { weekday: 'short', day: 'numeric', month: 'short' })}</strong> • ${s.time}
+                        ${myRole ? ' • <span style="color: #2B5A7A;">' + myRole + '</span>' : ''}
+                        ${isBlocked ? '<span style="color: #c0392b; font-weight: bold;"> • niet beschikbaar</span>' : ''}
+                        ${s.notes ? '<div style="font-size: 12px; color: #2B5A7A; margin-top: 3px;">📝 ' + s.notes + '</div>' : ''}
+                    </div>
+                    <div style="display: flex; gap: 6px;">
+                        <button class="primary" onclick="addToGoogleCalendar(${idx})" style="padding: 4px 8px; font-size: 11px;">📅</button>
+                        <button class="primary" onclick="addToLocalCalendar(${idx})" style="padding: 4px 8px; font-size: 11px;">💾</button>
+                    </div>
+                </div>
+            `;
+        }).join('') :
+        '<p style="color: #999;">Je hebt geen ingestelde diensten</p>';
+    
+    const myBlockouts = allBlockouts.filter(b => b.email === currentUser.email);
+    document.getElementById('myBlockouts').innerHTML = myBlockouts.length ?
+        myBlockouts.map((b, idx) => `
+            <div class="service-card">
+                <strong>${new Date(b.date).toLocaleDateString('nl-NL')}</strong>
+                ${b.reason ? '<br><small>Reden: ' + b.reason + '</small>' : ''}
+                <br>
+                <button class="danger" onclick="deleteBlockout(${idx})" style="margin-top: 10px; padding: 6px 12px; font-size: 12px;">Verwijderen</button>
+            </div>
+        `).join('') :
+        '<p style="color: #999;">Geen block-outs</p>';
+    
+    if (currentUser.status && currentUser.status !== 'unsuitable') {
+        const statusText = currentUser.status === 'expert' ? '🌟 Expert' :
+                          currentUser.status === 'good' ? '✅ Goed' :
+                          currentUser.status === 'competent' ? '👍 Competent' :
+                          currentUser.status === 'beginner' ? '📚 Beginner' :
+                          currentUser.status === 'training' ? '🎓 In Training' :
+                          currentUser.status === 'specialized' ? '🔧 Gespecialiseerd' :
+                          currentUser.status === 'reserve' ? '🔄 Reserve' : currentUser.status;
+        document.getElementById('myStatus').innerHTML = `<span class="badge badge-${currentUser.status}">${statusText}</span>`;
+    } else {
+        document.getElementById('myStatus').innerHTML = '<p style="color: #999;">Geen status</p>';
+    }
+    
+    // Laad reminder instellingen
+    const reminderSettings = JSON.parse(localStorage.getItem('reminder_' + currentUser.email) || '{"enabled": false, "hours": 24}');
+    document.getElementById('enableReminders').checked = reminderSettings.enabled;
+    document.getElementById('reminderHours').value = reminderSettings.hours;
+    document.getElementById('reminderSettings').style.display = reminderSettings.enabled ? 'block' : 'none';
+    
+    // Controleer op diensten en zet reminders
+    if (reminderSettings.enabled) {
+        scheduleReminders();
+    }
+    
+    // Show popup ONLY FIRST TIME with upcoming services
+    const hasSeenServiceNotification = localStorage.getItem('seen_service_notif_' + currentUser.email);
+    if (!hasSeenServiceNotification && myServices.length > 0) {
+        const upcomingServices = myServices.filter(s => new Date(s.date) >= new Date()).slice(0, 3);
+        if (upcomingServices.length > 0) {
+            const serviceList = upcomingServices.map(s => 
+                `• ${s.desc || 'Dienst'} - ${new Date(s.date).toLocaleDateString('nl-NL')} om ${s.time}`
+            ).join('\n');
+            
+            setTimeout(() => {
+                showModal('📅 Je volgende diensten', serviceList + '\n\nTip: Voeg deze toe aan je agenda met de knop hieronder!', 
+                    [{ text: 'OK', action: () => { closeModal(); localStorage.setItem('seen_service_notif_' + currentUser.email, 'true'); } }]
+                );
+            }, 800);
+        }
+    }
+    showTeamTab(currentTeamTab);
+}
+
+function saveReminderSettings() {
+    const enabled = document.getElementById('enableReminders').checked;
+    const hours = document.getElementById('reminderHours').value;
+    
+    const settings = { enabled, hours: parseInt(hours) };
+    localStorage.setItem('reminder_' + currentUser.email, JSON.stringify(settings));
+    
+    document.getElementById('reminderSettings').style.display = enabled ? 'block' : 'none';
+    
+    if (enabled) {
+        // Vraag toestemming voor browser notifications
+        if ('Notification' in window && Notification.permission === 'default') {
+            Notification.requestPermission();
+        }
+        scheduleReminders();
+    }
+}
+
+function scheduleReminders() {
+    const reminderSettings = JSON.parse(localStorage.getItem('reminder_' + currentUser.email) || '{"enabled": false, "hours": 24}');
+    const myServices = allServices.filter(s => Object.values(s.roles || {}).includes(currentUser.email));
+    
+    myServices.forEach(service => {
+        const serviceTime = new Date(service.date + 'T' + service.time);
+        const reminderTime = new Date(serviceTime.getTime() - (reminderSettings.hours * 60 * 60 * 1000));
+        const now = new Date();
+        
+        // Controleer of herinnering binnenkort moet gebeuren (binnen volgende uur)
+        const timeUntilReminder = reminderTime.getTime() - now.getTime();
+        
+        if (timeUntilReminder > 0 && timeUntilReminder < 60 * 60 * 1000) {
+            // Zet timeout voor herinnering
+            setTimeout(() => {
+                sendReminder(service);
+            }, Math.max(0, timeUntilReminder));
+        }
+    });
+}
+
+function sendReminder(service) {
+    const message = `Herinnering: Je dienst "${service.desc || 'Dienst'}" is ${service.date} om ${service.time}`;
+    
+    // Browser notification
+    if ('Notification' in window && Notification.permission === 'granted') {
+        new Notification('Rooster Techniek', {
+            body: message,
+            icon: 'icon.svg',
+            badge: 'icon.svg'
+        });
+    }
+    
+    // In-app popup
+    alert('🔔 ' + message);
+}
+
+function testReminder() {
+    const reminderSettings = JSON.parse(localStorage.getItem('reminder_' + currentUser.email) || '{"enabled": false, "hours": 24}');
+    
+    if (!reminderSettings.enabled) {
+        alert('Schakel eerst herinneringen in');
+        return;
+    }
+    
+    if ('Notification' in window && Notification.permission === 'default') {
+        Notification.requestPermission().then(() => {
+            if (Notification.permission === 'granted') {
+                new Notification('Rooster Techniek', {
+                    body: '✅ Herinneringen werken!',
+                    icon: 'icon.svg'
+                });
+            }
+        });
+    } else if ('Notification' in window && Notification.permission === 'granted') {
+        new Notification('Rooster Techniek', {
+            body: '✅ Herinneringen werken!',
+            icon: 'icon.svg'
+        });
+    } else {
+        alert('✅ Herinneringen zijn ingeschakeld!\n(Browser notifications zijn mogelijk uitgeschakeld)');
+    }
+}
+
+function openAddTeamModal() {
+    document.getElementById('addTeamModal').classList.add('active');
+}
+
+function closeAddTeamModal() {
+    document.getElementById('addTeamModal').classList.remove('active');
+}
+
+function addTeamMember() {
+    const name = document.getElementById('teamName').value.trim();
+    const email = document.getElementById('teamEmail').value.trim().toLowerCase();
+    const role = document.getElementById('teamRole').value;
+    const pin = document.getElementById('teamPin').value.trim();
+    const status = document.getElementById('teamStatus').value;
+    
+    if (!name || !email || !pin) {
+        alert('Naam, email en PIN verplicht');
+        return;
+    }
+    
+    if (allTeam.some(m => m.email.toLowerCase() === email)) {
+        alert('Dit account bestaat al');
+        return;
+    }
+    
+    allTeam.push({ name, email: email, role, pin, status, admin: false, created: new Date().toISOString() });
+    saveData('team', allTeam);
+    
+    renderTeamList();
+    renderAdminDashboard();
+    closeAddTeamModal();
+    
+    document.getElementById('teamName').value = '';
+    document.getElementById('teamEmail').value = '';
+    document.getElementById('teamPin').value = '';
+    document.getElementById('teamStatus').value = '';
+}
+
+function deleteTeamMember(email) {
+    if (confirm('Team-lid verwijderen? Dit verwijdert ook alle roosters voor deze persoon.')) {
+        allTeam = allTeam.filter(m => m.email !== email);
+        removeBlockouts(b => b.email === email);
+        saveData('team', allTeam);
+        renderTeamList();
+        renderAdminDashboard();
+    }
+}
+
+function toggleEditorRole(email, isCurrentlyEditor) {
+    const member = allTeam.find(m => m.email === email);
+    if (!member) return;
+    
+    const action = isCurrentlyEditor ? 'verwijderen' : 'geven';
+    const msg = isCurrentlyEditor 
+        ? `Verwijder Editor rol van ${member.name}?`
+        : `Geef Editor rol aan ${member.name}?\n\nZij mogen dan ALLEEN diensten bewerken.`;
+    
+    if (confirm(msg)) {
+        member.editor = !isCurrentlyEditor;
+        saveData('team', allTeam);
+        renderTeamList();
+        showModal('Klaar!', `Editor rol ${action} voor ${member.name}`, [{ text: 'OK', action: closeModal }]);
+    }
+}
+
+function deleteAllServices() {
+    if (!confirm('Alle diensten verwijderen?')) return;
+    if (!confirm('Dit verwijdert ALLE diensten en indelingen. Doorgaan?')) return;
+    allServices = [];
+    saveData('services', []);
+    renderServicesList();
+    renderAdminDashboard();
+}
+
+function openAddServiceModal() {
+    document.getElementById('serviceDate').valueAsDate = new Date();
+    document.getElementById('addServiceModal').classList.add('active');
+}
+
+function closeAddServiceModal() {
+    document.getElementById('addServiceModal').classList.remove('active');
+}
+
+function addService() {
+    const date = document.getElementById('serviceDate').value;
+    const time = document.getElementById('serviceTime').value;
+    const desc = document.getElementById('serviceDesc').value;
+    const notes = document.getElementById('serviceNotes').value.trim();
+    const repeatType = document.getElementById('serviceRepeat').value;
+    
+    if (!date || !time) {
+        showModal('Fout', 'Datum en tijd zijn verplicht!', [{ text: 'OK', action: closeModal }]);
+        return;
+    }
+    
+    const roles = {};
+    ['Video', 'Geluid', 'Multimedia', 'Licht'].forEach(role => {
+        roles[role] = '';
+    });
+    
+    const seriesId = 'series_' + Date.now();
+    const servicesToAdd = [];
+    
+    // Basis dienst
+    const baseExists = allServices.some(s => s.date === date && s.time === time);
+    if (!baseExists) {
+        const baseService = { date, time, desc, notes, roles, created: new Date().toISOString(), seriesId };
+        servicesToAdd.push(baseService);
+    }
+    
+    // Herhalingen genereren
+    if (repeatType !== 'none') {
+        let currentDate = new Date(date + 'T00:00:00');
+        let maxIterations = repeatType === 'weekly' ? 12 : 
+                           repeatType === 'biweekly' ? 12 : 6;
+        let step = repeatType === 'weekly' ? 7 : 
+                  repeatType === 'biweekly' ? 14 : 30; // dagen
+        
+        for (let i = 1; i < maxIterations; i++) {
+            currentDate.setDate(currentDate.getDate() + step);
+            const nextDate = currentDate.toISOString().split('T')[0];
+            
+            // Voorkom duplicaten
+            if (!allServices.some(s => s.date === nextDate && s.time === time)) {
+                servicesToAdd.push({ date: nextDate, time, desc, notes, roles, created: new Date().toISOString(), seriesId });
+            }
+        }
+    }
+    
+    // Voeg allemaal toe
+    allServices = allServices.concat(servicesToAdd);
+    allServices.sort((a, b) => new Date(a.date + ' ' + a.time) - new Date(b.date + ' ' + b.time));
+    saveData('services', allServices);
+    
+    renderServicesList();
+    renderAdminDashboard();
+    closeAddServiceModal();
+    
+    showModal('✅ Succes', 'Er zijn ' + servicesToAdd.length + ' dienst(en) toegevoegd!', 
+        [{ text: 'OK', action: closeModal }]
+    );
+    
+    document.getElementById('serviceDesc').value = '';
+    document.getElementById('serviceNotes').value = '';
+    document.getElementById('serviceRepeat').value = 'none';
+}
+
+// Vindt de actuele positie van een dienst op basis van datum|tijd
+function findServiceIndex(key) {
+    return allServices.findIndex(s => (s.date + '|' + s.time) === key);
+}
+
+function deleteService(key) {
+    const idx = findServiceIndex(key);
+    if (idx < 0) return;
+    if (confirm('Dienst verwijderen?')) {
+        allServices.splice(idx, 1);
+        saveData('services', allServices);
+        renderServicesList();
+        renderAdminDashboard();
+    }
+}
+
+function editService(key) {
+    const idx = findServiceIndex(key);
+    if (idx < 0) return;
+    const s = allServices[idx];
+    const teamMembers = allTeam.filter(m => !m.admin);
+    
+    const html = `
+        <div class="form-group">
+            <label>Datum</label>
+            <input type="date" id="editDate" value="${s.date}">
+        </div>
+        <div class="form-group">
+            <label>Tijd</label>
+            <input type="time" id="editTime" value="${s.time}">
+        </div>
+        <div class="form-group">
+            <label>Omschrijving</label>
+            <input type="text" id="editDesc" value="${s.desc || ''}">
+        </div>
+        <div class="form-group">
+            <label>📝 Notitie voor teamleden</label>
+            <textarea id="editNotes" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; font-family: inherit; resize: vertical; min-height: 60px;">${s.notes || ''}</textarea>
+        </div>
+        ${['Video', 'Geluid', 'Multimedia', 'Licht'].map(role => {
+            // Display name met extra info voor Video
+            const displayRole = role === 'Video' ? 'Video (livestream)' : role;
+            // Voeg alle leden toe die deze rol hebben, plus Techniek Lead
+            // Alle goedgekeurde leden tonen; leden met deze rol eerst
+            const roleMembers = teamMembers
+                .filter(m => m.role !== 'Pending')
+                .sort((a, b) => {
+                    const aMatch = (a.role === role || a.role === 'Techniek Lead') ? 0 : 1;
+                    const bMatch = (b.role === role || b.role === 'Techniek Lead') ? 0 : 1;
+                    return aMatch - bMatch || a.name.localeCompare(b.name);
+                });
+            return `
+                <div class="form-group">
+                    <label>${displayRole}</label>
+                    <select id="role_${role}">
+                        <option value="">-- Selecteer --</option>
+                        ${roleMembers.map(m => `<option value="${m.email}" ${s.roles[role] === m.email ? 'selected' : ''}>${m.name}</option>`).join('')}
+                    </select>
+                </div>
+            `;
+        }).join('')}
+        <div class="modal-buttons">
+            <button onclick="closeEditServiceModal()">Annuleren</button>
+            <button class="primary" onclick="saveServiceEdit('${key}')">Opslaan</button>
+        </div>
+    `;
+    
+    document.getElementById('editServiceContent').innerHTML = html;
+    document.getElementById('editServiceModal').classList.add('active');
+}
+
+async function saveServiceEdit(key) {
+    const idx = findServiceIndex(key);
+    if (idx < 0) {
+        showModal('Fout', 'Deze dienst bestaat niet meer. Ververs de pagina.', [{ text: 'OK', action: closeModal }]);
+        return;
+    }
+    const oldRoles = Object.assign({}, allServices[idx].roles || {});
+    allServices[idx].date = document.getElementById('editDate').value;
+    allServices[idx].time = document.getElementById('editTime').value;
+    allServices[idx].desc = document.getElementById('editDesc').value;
+    allServices[idx].notes = document.getElementById('editNotes').value.trim();
+    
+    ['Video', 'Geluid', 'Multimedia', 'Licht'].forEach(role => {
+        allServices[idx].roles[role] = document.getElementById('role_' + role).value;
+    });
+    
+    await saveData('services', allServices);
+    renderServicesList();
+    renderAdminDashboard();
+    closeEditServiceModal();
+    
+    // Nieuw ingedeelde personen: mail aanbieden
+    const service = allServices[idx];
+    const buttons = [];
+    ['Video', 'Geluid', 'Multimedia', 'Licht'].forEach(role => {
+        const email = service.roles[role];
+        if (email && email !== oldRoles[role]) {
+            const member = allTeam.find(m => m.email === email);
+            if (member) {
+                const label = role === 'Video' ? 'Video (livestream)' : role;
+                buttons.push({
+                    text: '✉️ Mail ' + firstNameOf(member.name),
+                    action: () => { window.location.href = serviceMailFor(member, service, label); closeModal(); }
+                });
+            }
+        }
+    });
+    buttons.push({ text: 'Sluiten', action: closeModal, style: 'padding: 10px 20px; background: #95A5A6; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold;' });
+    
+    const message = buttons.length > 1
+        ? '✅ Dienst bijgewerkt!\n\nWil je de nieuw ingedeelde personen een mail sturen?'
+        : '✅ Dienst bijgewerkt!';
+    showModal('Succes', message, buttons);
+}
+
+function closeEditServiceModal() {
+    document.getElementById('editServiceModal').classList.remove('active');
+}
+
+function openBlockoutModal() {
+    document.getElementById('blockoutDate').valueAsDate = new Date();
+    document.getElementById('blockoutModal').classList.add('active');
+}
+
+function closeBlockoutModal() {
+    document.getElementById('blockoutModal').classList.remove('active');
+}
+
+// Waarschuwt het teamlid als ze op die datum al is ingedeeld
+function warnIfAssignedOn(date) {
+    const hits = [];
+    allServices.filter(s => s.date === date).forEach(s => {
+        Object.entries(s.roles || {}).forEach(([role, email]) => {
+            if (email && currentUser && email.toLowerCase() === currentUser.email.toLowerCase()) {
+                hits.push(role === 'Video' ? 'Video (livestream)' : role);
+            }
+        });
+    });
+    if (hits.length) {
+        showModal('Let op', 'Je staat op deze datum ingedeeld als: ' + hits.join(', ') + '.\n\nDe blokkering is opgeslagen. Laat Remko weten dat je niet kunt komen.', [{ text: 'OK', action: closeModal }]);
+    }
+}
+
+function addBlockout() {
+    const date = document.getElementById('blockoutDate').value;
+    const reason = document.getElementById('blockoutReason').value.trim();
+    if (!reason) {
+        showModal('Let op', 'Vul een reden van afwezigheid in.', [{ text: 'OK', action: closeModal }]);
+        return;
+    }
+    
+    if (!date) {
+        alert('Datum verplicht');
+        return;
+    }
+    
+    if (allBlockouts.some(b => b.email === currentUser.email && b.date === date)) {
+        showModal('Let op', 'Je hebt deze dag al als niet-beschikbaar ingesteld.', [{ text: 'OK', action: closeModal }]);
+        return;
+    }
+    
+    const id = db.ref(DATA_PATHS.blockouts).push().key;
+    const item = { id, email: currentUser.email, date, reason, created: new Date().toISOString() };
+    allBlockouts.push(item);
+    warnIfAssignedOn(date);
+    db.ref(DATA_PATHS.blockouts + '/' + id).set(item).catch(err => {
+        console.error('Blokkering opslaan mislukt:', err);
+        showModal('Fout', '❌ Opslaan van je beschikbaarheid is mislukt. Probeer het opnieuw.', [{ text: 'OK', action: closeModal }]);
+    });
+    
+    renderTeamView();
+    closeBlockoutModal();
+    document.getElementById('blockoutReason').value = '';
+}
+
+function deleteBlockout(idx) {
+    const b = allBlockouts[idx];
+    if (!b) return;
+    if (b.id) removeBlockouts(x => x.id === b.id);
+    else allBlockouts.splice(idx, 1);
+    renderTeamView();
+}
+
+function deleteMyAccount() {
+    if (!confirm('Weet je het zeker? Dit verwijdert je account en alle gegevens.')) return;
+    if (!confirm('Dit kan niet ongedaan gemaakt worden. Doorgaan?')) return;
+    
+    allTeam = allTeam.filter(m => m.email !== currentUser.email);
+    removeBlockouts(b => b.email === currentUser.email);
+    saveData('team', allTeam);
+    
+    alert('Jouw account is verwijderd. Neem contact op met de beheerder.');
+    handleLogout();
+}
+
+function editTeamMember(email) {
+    const member = allTeam.find(m => m.email.toLowerCase() === email.toLowerCase());
+    
+    // Menu met opties
+    const options = prompt('Wat wil je doen?\n1 = Status wijzigen\n2 = PIN resetten\n3 = Rol instellen', '1');
+    
+    if (options === '1') {
+        const newStatus = prompt('Status:\n(leeg = geen)\n\nopties:\nexpert = Expert\ngood = Goed\ncompetent = Competent\nbeginner = Beginner\ntraining = In Training\nspecialized = Gespecialiseerd\nreserve = Reserve\nunsuitable = Niet Geschikt', member.status || '');
+        if (newStatus !== null) {
+            member.status = newStatus;
+            saveData('team', allTeam);
+            renderTeamList();
+            renderAdminDashboard();
+        }
+    } else if (options === '3') {
+        const choice = prompt(member.name + ' - kies een rol:\n1 = Video (livestream)\n2 = Geluid\n3 = Multimedia\n4 = Licht\n5 = Techniek Lead\n6 = Geen rol', '');
+        const map = { '1': 'Video', '2': 'Geluid', '3': 'Multimedia', '4': 'Licht', '5': 'Techniek Lead', '6': 'Geen rol' };
+        if (choice && map[choice.trim()]) {
+            member.role = map[choice.trim()];
+            saveData('team', allTeam);
+            renderTeamList();
+            renderAdminDashboard();
+        }
+    } else if (options === '2') {
+        const newPin = prompt('Nieuwe PIN voor ' + member.name + ':', '');
+        if (newPin !== null && newPin.trim() !== '') {
+            member.pin = newPin.trim();
+            saveData('team', allTeam);
+            alert('✅ PIN gewijzigd naar: ' + newPin);
+            renderTeamList();
+        }
+    }
+}
+
+function addToGoogleCalendar(idx) {
+    const myServices = allServices
+        .filter(s => Object.values(s.roles || {}).includes(currentUser.email))
+        .sort((a, b) => new Date(a.date) - new Date(b.date));
+    
+    const service = myServices[idx];
+    if (!service) return;
+    
+    const start = new Date(service.date + 'T' + service.time);
+    const end = new Date(start.getTime() + 2 * 60 * 60 * 1000);
+    
+    const startStr = start.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+    const endStr = end.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+    
+    const title = encodeURIComponent(service.desc || 'Dienst Kijk Omhoog');
+    const details = encodeURIComponent('Dienst bij Stichting Kijk Omhoog\nTijd: ' + service.time + '\nVideo/Beamer Team');
+    
+    const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${startStr}/${endStr}&details=${details}`;
+    
+    window.open(googleUrl, '_blank');
+    alert('✅ Dienst geopend in Google Calendar!\n\nJe kunt het nu toevoegen aan je agenda.');
+}
+
+function addToLocalCalendar(idx) {
+    const myServices = allServices
+        .filter(s => Object.values(s.roles || {}).includes(currentUser.email))
+        .sort((a, b) => new Date(a.date) - new Date(b.date));
+    
+    const service = myServices[idx];
+    if (!service) return;
+    
+    const start = new Date(service.date + 'T' + service.time);
+    const end = new Date(start.getTime() + 2 * 60 * 60 * 1000);
+    
+    const icsContent = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Kijk Omhoog//Rooster Techniek//NL
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:${Math.random().toString(36).substring(2)}@kijkomhoog.nl
+DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').split('.')[0]}Z
+DTSTART:${start.toISOString().replace(/[-:]/g, '').split('.')[0]}Z
+DTEND:${end.toISOString().replace(/[-:]/g, '').split('.')[0]}Z
+SUMMARY:${service.desc || 'Dienst Kijk Omhoog'}
+DESCRIPTION:Dienst bij Stichting Kijk Omhoog - Video/Beamer Team - Tijd: ${service.time}
+LOCATION:Stichting Kijk Omhoog
+STATUS:CONFIRMED
+END:VEVENT
+END:VCALENDAR`;
+    
+    const blob = new Blob([icsContent], { type: 'text/calendar' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `kijk-omhoog-${service.date}.ics`;
+    a.click();
+    window.URL.revokeObjectURL(url);
+    alert('✅ Dienst gedownload!\n\nDe .ics-file kun je in Outlook, Apple Calendar, etc. importeren.');
+}
+
+function exportAllData() {
+    const data = {
+        team: allTeam,
+        services: allServices,
+        blockouts: allBlockouts,
+        exportDate: new Date().toISOString()
+    };
+    const json = JSON.stringify(data, null, 2);
+    const blob = new Blob([json], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'rooster-techniek-backup-' + new Date().toISOString().split('T')[0] + '.json';
+    a.click();
+}
+
+
+
+function loadDefaultSundays() {
+    if (!confirm('Dit voegt alle zondagen tot januari + 24 dec + 31 dec toe.\n\nBestaande diensten worden NIET verwijderd.')) return;
+    
+    const sundays = [];
+    
+    // Vind alle zondagen van nu tot eind januari
+    const today = new Date();
+    const endDate = new Date(today.getFullYear() + 1, 1, 31); // Eind januari volgende jaar
+    
+    for (let d = new Date(today); d <= endDate; d.setDate(d.getDate() + 1)) {
+        if (d.getDay() === 0) { // 0 = zondag
+            const dateStr = d.toISOString().split('T')[0];
+            // Check of dienst al bestaat
+            if (!allServices.some(s => s.date === dateStr && (s.desc === 'Zondagsdienst' || s.desc === 'Zondag'))) {
+                sundays.push({
+                    date: dateStr,
+                    time: '19:00',
+                    desc: 'Zondagsdienst',
+                    notes: 'Standaard zondagdienst - pas aan waar nodig',
+                    roles: { 'Video (livestream)': '', Geluid: '', Multimedia: '', Licht: '' },
+                    created: new Date().toISOString()
+                });
+            }
+        }
+    }
+    
+    // Voeg 24 december toe (kerstnacht)
+    const christmas = new Date(today.getFullYear(), 11, 24); // December 24
+    if (today <= christmas) {
+        const christmasStr = christmas.toISOString().split('T')[0];
+        if (!allServices.some(s => s.date === christmasStr)) {
+            sundays.push({
+                date: christmasStr,
+                time: '22:00',
+                desc: '🎄 Kerstnacht',
+                notes: 'Kerstnacht dienst - late avond',
+                roles: { Video: '', Geluid: '', Multimedia: '', Licht: '' },
+                created: new Date().toISOString()
+            });
+        }
+    }
+    
+    // Voeg 31 december toe (oudejaarsavond)
+    const newYearsEve = new Date(today.getFullYear(), 11, 31); // December 31
+    if (today <= newYearsEve) {
+        const newYearsEveStr = newYearsEve.toISOString().split('T')[0];
+        if (!allServices.some(s => s.date === newYearsEveStr)) {
+            sundays.push({
+                date: newYearsEveStr,
+                time: '22:00',
+                desc: '🎊 Oudejaarsavond',
+                notes: 'Oudejaarsavond dienst',
+                roles: { Video: '', Geluid: '', Multimedia: '', Licht: '' },
+                created: new Date().toISOString()
+            });
+        }
+    }
+    
+    // Voeg allemaal toe
+    allServices = allServices.concat(sundays);
+    allServices.sort((a, b) => new Date(a.date + ' ' + a.time) - new Date(b.date + ' ' + b.time));
+    saveData('services', allServices);
+    
+    renderServicesList();
+    renderAdminDashboard();
+    
+    showModal('✅ Klaar!', 'Er zijn ' + sundays.length + ' diensten toegevoegd.\n\nJe kunt ze allemaal nog aanpassen in het Diensten tabblad.', 
+        [{ text: 'OK', action: () => { closeModal(); switchAdminTab('services'); } }]
+    );
+}
+
+function resetAllData() {
+    if (!confirm('WAARSCHUWING: Dit verwijdert ALLES. Weet je het zeker?')) return;
+    if (!confirm('Dit kan niet ongedaan gemaakt worden. Typ "VERWIJDER" om te bevestigen.')) return;
+    
+    if (prompt('Type "VERWIJDEREN" om te bevestigen:') === 'VERWIJDEREN') {
+        db.ref('rooster').remove();
+        localStorage.clear();
+        showModal('✅ Data gewist', 'Alle data is verwijderd.\n\nPage wordt herladen...', 
+            [{ text: 'OK', action: () => { closeModal(); location.reload(); } }]
+        );
+    }
+}
+</script>
+
+</body>
+</html>
