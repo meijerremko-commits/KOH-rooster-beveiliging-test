@@ -706,7 +706,7 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script>
 // ===== VERSIE (controleer dit op elk apparaat) =====
-const APP_VERSION = 'v36 - inlogscherm, privacy, reden';
+const APP_VERSION = 'v37 TEST telefoon apart';
 document.addEventListener('DOMContentLoaded', () => {
     const tag = document.createElement('div');
     tag.textContent = 'versie ' + APP_VERSION;
@@ -983,21 +983,37 @@ function readTeam(snap) {
     const updates = {};
     const list = [];
     const seen = new Set();
+    const legacyPhones = {};
+    const adminNow = isAdminSignedIn();
     keys.forEach(k => {
         const item = raw[k];
         if (!item || typeof item !== 'object') { updates[k] = null; return; }
         const mail = (item.email || '').toLowerCase();
         if (mail && seen.has(mail)) { updates[k] = null; return; }
         if (mail) seen.add(mail);
-        if (item.id === k) { list.push(item); return; }
+        if (item.id === k) {
+            if (item.phone !== undefined && adminNow) {
+                legacyPhones[k] = item.phone;
+                updates[k + '/phone'] = null;
+            }
+            const clean = Object.assign({}, item);
+            delete clean.phone;
+            list.push(clean);
+            return;
+        }
         const newId = db.ref(DATA_PATHS.team).push().key;
         const migrated = Object.assign({}, item, { id: newId });
+        if (item.phone !== undefined && adminNow) legacyPhones[newId] = item.phone;
+        delete migrated.phone;
         updates[k] = null;
         updates[newId] = migrated;
         list.push(migrated);
     });
     if (Object.keys(updates).length) {
         db.ref(DATA_PATHS.team).update(updates).catch(err => console.error('Omzetten teamlijst mislukt:', err));
+    }
+    if (Object.keys(legacyPhones).length) {
+        db.ref(PHONES_PATH).update(legacyPhones).catch(err => console.error('Telefoons verplaatsen mislukt:', err));
     }
     return list;
 }
@@ -1006,19 +1022,69 @@ function readTeam(snap) {
 function saveTeamDiff(value) {
     value.forEach(m => { if (!m.id) m.id = db.ref(DATA_PATHS.team).push().key; });
     const list = JSON.parse(JSON.stringify(value));
-    const oldById = new Map((lastSynced.team || []).map(m => [m.id, canonical(m)]));
+    const oldById = new Map((lastSynced.team || []).map(m => [m.id, canonical(stripPhone(m))]));
     const newIds = new Set(list.map(m => m.id));
     const updates = {};
-    oldById.forEach((_, id) => { if (!newIds.has(id)) updates[id] = null; });
-    list.forEach(m => { if (oldById.get(m.id) !== canonical(m)) updates[m.id] = m; });
-    lastSynced.team = list;
+    const phoneUpdates = {};
+    oldById.forEach((_, id) => {
+        if (!newIds.has(id)) { updates[id] = null; phoneUpdates[id] = null; }
+    });
+    list.forEach(m => {
+        const clean = stripPhone(m);
+        if (oldById.get(m.id) !== canonical(clean)) updates[m.id] = clean;
+        if (m.phone !== undefined) {
+            const p = m.phone || '';
+            if (p !== (memberPhones[m.id] || '')) phoneUpdates[m.id] = p || null;
+        }
+    });
+    lastSynced.team = list.map(stripPhone);
     if (Object.keys(updates).length) {
         db.ref(DATA_PATHS.team).update(updates).catch(err => {
             console.error('Teamlid opslaan mislukt:', err);
             showModal('Fout', '❌ Opslaan van het teamlid is mislukt. Controleer je internetverbinding en probeer opnieuw.', [{ text: 'OK', action: closeModal }]);
         });
     }
+    if (Object.keys(phoneUpdates).length) {
+        Object.keys(phoneUpdates).forEach(id => {
+            if (phoneUpdates[id]) memberPhones[id] = phoneUpdates[id];
+            else delete memberPhones[id];
+        });
+        db.ref(PHONES_PATH).update(phoneUpdates).catch(err => console.error('Telefoon opslaan mislukt:', err));
+    }
 }
+
+// ===== TELEFOONNUMMERS: apart opgeslagen, alleen zichtbaar voor de beheerder =====
+const PHONES_PATH = 'rooster/phones';
+let memberPhones = {};
+
+function stripPhone(m) {
+    const c = Object.assign({}, m);
+    delete c.phone;
+    return c;
+}
+
+function isAdminSignedIn() {
+    return !!(auth.currentUser && auth.currentUser.email === ADMIN_EMAIL);
+}
+
+// Zet de telefoonnummers op de leden in het geheugen (alleen voor de beheerder)
+function applyPhones() {
+    allTeam.forEach(m => {
+        if (m.id && memberPhones[m.id] !== undefined) m.phone = memberPhones[m.id];
+    });
+}
+
+function attachPhoneListener() {
+    db.ref(PHONES_PATH).on('value', snap => {
+        memberPhones = snap.val() || {};
+        applyPhones();
+        refreshAfterRemoteChange();
+    }, err => console.error('Telefoons lezen mislukt:', err));
+}
+
+auth.onAuthStateChanged(u => {
+    if (u && u.email === ADMIN_EMAIL) attachPhoneListener();
+});
 
 // Live luisteren naar wijzigingen
 Object.keys(DATA_PATHS).forEach(key => {
@@ -1041,7 +1107,7 @@ Object.keys(DATA_PATHS).forEach(key => {
         }
         console.log('[LIVE] update ontvangen van server voor:', key, '| aantal:', arr.length);
         lastSynced[key] = JSON.parse(JSON.stringify(arr)); // echte kopie, geen gedeelde referentie
-        if (key === 'team') allTeam = arr;
+        if (key === 'team') { allTeam = arr; applyPhones(); }
         else if (key === 'services') allServices = arr;
         else allBlockouts = arr;
 
